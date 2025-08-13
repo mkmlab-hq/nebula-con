@@ -11,8 +11,8 @@ from typing import Union, Optional
 
 
 def population_stability_index(
-    expected: Union[np.ndarray, pd.Series], 
-    actual: Union[np.ndarray, pd.Series], 
+    expected: list[float], 
+    actual: list[float], 
     bins: int = 10
 ) -> float:
     """

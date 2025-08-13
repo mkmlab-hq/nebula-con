@@ -72,9 +72,13 @@ class FeatureBuilder:
         original_length = len(series)
         clean_data = series.dropna()
         
-        if len(clean_data) < self.window_size * 2:
-            # Not enough data for meaningful analysis
-            return np.nan
+        if len(clean_data) < 50:
+            # Graceful: if fewer than 50 rows → psi_trigger_rate = 0.0
+            return 0.0
+            
+        # Check if all values are the same → psi_trigger_rate = 0.0
+        if np.var(clean_data) == 0:
+            return 0.0
             
         # Use the clean data as baseline (expected distribution)
         baseline = clean_data.values
@@ -107,7 +111,7 @@ class FeatureBuilder:
                 
         # Calculate trigger rate
         if total_windows == 0:
-            return np.nan
+            return 0.0
             
         trigger_rate = windows_above_threshold / total_windows
         return float(trigger_rate)
