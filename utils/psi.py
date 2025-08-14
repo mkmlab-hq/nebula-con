@@ -1,9 +1,8 @@
 import numpy as np
-
+from typing import Optional
 
 def population_stability_index(expected, actual, bins=10, min_samples=50):
     """Calculate Population Stability Index (PSI) between two distributions."""
-    # Convert to numpy arrays and handle edge cases
     expected = np.array(expected, dtype=float)
     actual = np.array(actual, dtype=float)
 

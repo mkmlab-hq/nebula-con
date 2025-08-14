@@ -1,7 +1,5 @@
-from typing import Optional
-
 import numpy as np
-
+from typing import Optional
 
 def approximate_dip(x: np.ndarray, grid_size: int = 256) -> Optional[float]:
     """
@@ -34,7 +32,7 @@ def approximate_dip(x: np.ndarray, grid_size: int = 256) -> Optional[float]:
     grid = np.linspace(x_min, x_max, grid_size)
 
     # Simple KDE estimation (Gaussian kernel)
-    bandwidth = np.std(x) * (len(x) ** (-1 / 5))  # Scott's rule approximation
+    bandwidth = np.std(x) * (len(x) ** (-1/5))  # Scott's rule approximation
     kde_values = np.zeros_like(grid)
 
     for i, point in enumerate(grid):
@@ -49,7 +47,7 @@ def approximate_dip(x: np.ndarray, grid_size: int = 256) -> Optional[float]:
 
     # Count peaks (negative to positive transitions)
     peaks = np.sum(sign_changes < 0)
-    # valleys = np.sum(sign_changes > 0)  # 미사용 변수
+    valleys = np.sum(sign_changes > 0)
 
     # Handle edge cases
     if peaks <= 1:
@@ -99,7 +97,6 @@ def approximate_dip(x: np.ndarray, grid_size: int = 256) -> Optional[float]:
     dip_stat = normalized_depth * (peaks - 1) * 0.5
 
     return float(dip_stat)
-
 
 def dip_test_unimodal(x: np.ndarray, threshold: float = 0.02) -> bool:
     """
