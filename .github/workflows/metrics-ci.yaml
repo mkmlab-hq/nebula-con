@@ -1,0 +1,47 @@
+name: Metrics & Quality CI
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  metrics-quality:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install (with dev extras)
+        run: |
+            pip install --upgrade pip
+            pip install -e .[dev]
+
+      - name: Generate axes metrics
+        run: |
+            mkdir -p metrics
+            nebula-axes-run --input data/raw/sample.csv --out metrics/axes_run.json
+
+      - name: Schema validation
+        run: |
+            python scripts/validate_metrics_schema.py --file metrics/axes_run.json
+
+      - name: Threshold assertions
+        run: |
+            python scripts/assert_thresholds.py --metrics metrics/axes_run.json --profile config/metrics_profile_default.json
+
+      - name: Run tests
+        run: pytest -q
+
+      - name: Upload metrics artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: axes-metrics
+          path: metrics/axes_run.json 

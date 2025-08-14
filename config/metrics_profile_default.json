@@ -1,0 +1,61 @@
+{
+  "version": "1.0",
+  "generated_at": null,
+  "metrics": {
+    "st_var_ratio": {
+      "min": 0.0,
+      "max": 3.0,
+      "severity": "error",
+      "allow_none": false
+    },
+    "seasonal_corr": {
+      "min": -1.0,
+      "max": 1.0,
+      "severity": "error",
+      "allow_none": false
+    },
+    "psi_trigger_rate": {
+      "min": 0.0,
+      "max": 2.0,
+      "severity": "error",
+      "warn_above": 0.7,
+      "allow_none": false
+    },
+    "sk_k_score": {
+      "min": 0.0,
+      "max": 50.0,
+      "severity": "error",
+      "allow_none": false
+    },
+    "outlier_impact": {
+      "min": 0.0,
+      "max": 1.0,
+      "severity": "error",
+      "allow_none": false
+    },
+    "dip_stat": {
+      "min": 0.0,
+      "max": 0.3,
+      "severity": "error",
+      "allow_none": true
+    },
+    "intra_cluster_density": {
+      "min": 0.0,
+      "max": 5.0,
+      "severity": "error",
+      "allow_none": true
+    },
+    "silhouette_approx": {
+      "min": -1.0,
+      "max": 1.0,
+      "severity": "error",
+      "allow_none": true
+    },
+    "density_k": {
+      "min": 2,
+      "max": 20,
+      "severity": "error",
+      "allow_none": true
+    }
+  }
+} 

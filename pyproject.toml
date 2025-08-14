@@ -39,6 +39,7 @@ dev = [
     "black>=22.0.0",
     "ruff>=0.1.0",
     "mypy>=0.900",
+    "pydantic>=2.6.0",
 ]
 test = [
     "pytest>=6.0.0",
