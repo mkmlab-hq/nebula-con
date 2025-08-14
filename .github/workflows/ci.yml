@@ -1,0 +1,19 @@
+name: NebulaCon CI
+on:
+  push:
+    branches: [ main, master, develop ]
+  pull_request:
+    branches: [ main, master ]
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install deps
+        run: pip install -r requirements.txt
+      - name: Smoke baseline (skip if no sample data)
+        run: |
+          if [ -f data/raw/sample.csv ]; then make baseline DATA=data/raw/sample.csv; else echo "No sample data yet"; fi 
