@@ -1,0 +1,97 @@
+import pandas as pd, numpy as np
+from typing import Dict, Any
+from utils.density import compute_density_metrics
+
+class AxesFeatureBuilder:
+    def __init__(self, cfg: Dict[str, Any] | None = None):
+        self.cfg = cfg or {}
+
+    def temporal_metrics(self, df: pd.DataFrame, time_col: str, target_col: str) -> Dict[str, float]:
+        s = df.sort_values(time_col)[target_col].astype(float)
+        if len(s) < 30:
+            return {"st_var_ratio": np.nan, "seasonal_corr": np.nan, "psi_trigger_rate": np.nan}
+        global_var = float(s.var())
+        win = min(24, max(5, len(s)//10))
+        roll_var = float(s.rolling(window=win, min_periods=5).var().mean())
+        st_var_ratio = roll_var / (global_var + 1e-9)
+        lag = min(24, max(2, len(s)//12))
+        seasonal_corr = s.autocorr(lag=lag)
+        
+        # A3: REAL PSI calculation
+        n = len(s)
+        if n >= 120:
+            mid = n // 2
+            baseline = s.iloc[:mid]
+            current = s.iloc[mid:]
+            from utils.psi import population_stability_index
+            psi_trigger_rate = population_stability_index(
+                baseline, current, bins=10, min_samples=50
+            )
+        else:
+            psi_trigger_rate = 0.0  # 데이터가 너무 적을 때는 변화 감지 무효
+        
+        return {
+            "st_var_ratio": st_var_ratio,
+            "seasonal_corr": float(seasonal_corr) if seasonal_corr is not None else np.nan,
+            "psi_trigger_rate": psi_trigger_rate
+        }
+
+    def distributional_metrics(self, series: pd.Series) -> Dict[str, float]:
+        s = series.astype(float).dropna()
+        skew = s.skew()
+        kurt = s.kurtosis()
+        sk_k_score = float(abs(skew) + abs(kurt - 3))
+        q1, q3 = s.quantile(0.25), s.quantile(0.75)
+        iqr = (q3 - q1) + 1e-9
+        outlier_impact = float(((s < q1 - 1.5*iqr) | (s > q3 + 1.5*iqr)).mean())
+        dip_stat = np.nan  # placeholder for future Hartigan dip test
+        return {
+            "sk_k_score": sk_k_score,
+            "outlier_impact": outlier_impact,
+            "dip_stat": dip_stat
+        }
+
+    def semantic_density_metrics(self, df: pd.DataFrame, target_col: str) -> Dict[str, float]:
+        """C-axis: Semantic Density metrics"""
+        try:
+            # Select numeric features (exclude target and timestamp-like)
+            num_df = df.select_dtypes(include=['int64', 'float64', 'float32'])
+            drop_cols = []
+            for c in num_df.columns:
+                if c.lower().startswith('time') or c.lower().endswith('stamp'):
+                    drop_cols.append(c)
+            if target_col in num_df.columns:
+                drop_cols.append(target_col)
+            
+            X = num_df.drop(columns=[c for c in drop_cols if c in num_df.columns]).values
+            intra_density, sil_approx, k_used = compute_density_metrics(X)
+        except Exception:
+            intra_density, sil_approx, k_used = None, None, None
+        
+        return {
+            "intra_cluster_density": intra_density,
+            "silhouette_approx": sil_approx,
+            "density_k": k_used
+        }
+
+    def build(self, df: pd.DataFrame, time_col: str, target_col: str) -> Dict[str, float]:
+        t = self.temporal_metrics(df, time_col, target_col)
+        d = self.distributional_metrics(df[target_col])
+        c = self.semantic_density_metrics(df, target_col)
+        return {**t, **d, **c}
+
+if __name__ == "__main__":
+    import argparse, json
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--data", required=True)
+    ap.add_argument("--time_col", default=None)
+    ap.add_argument("--target_col", default=None)
+    args = ap.parse_args()
+    df = pd.read_csv(args.data)
+    if not args.time_col:
+        args.time_col = df.columns[0]
+    if not args.target_col:
+        args.target_col = df.columns[-1]
+    fb = AxesFeatureBuilder()
+    feats = fb.build(df, args.time_col, args.target_col)
+    print(json.dumps(feats, indent=2))
