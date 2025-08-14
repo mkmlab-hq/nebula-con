@@ -2,9 +2,9 @@ name: NebulaCon CI
 
 on:
   push:
-    branches: [ master, main ]
+    branches: [ main, master, develop ]
   pull_request:
-    branches: [ master, main ]
+    branches: [ main, master ]
   workflow_dispatch:
 
 jobs:
@@ -31,3 +31,16 @@ jobs:
           ruff format --check .
           echo "Running Ruff Linter..."
           ruff check .
+
+  build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install deps
+        run: pip install -r requirements.txt
+      - name: Smoke baseline (skip if no sample data)
+        run: |
+          if [ -f data/raw/sample.csv ]; then make baseline DATA=data/raw/sample.csv; else echo "No sample data yet"; fi
