@@ -1,0 +1,102 @@
+# .github/workflows/pr-auto-merge.yml
+# PR 자동 병합: 하루 2회 정시 집행
+#
+# - 오전 09:00, 오후 18:00에 CI 통과 PR 자동 병합
+# - 개발자의 핵심 임무 집중 보장
+# - 체계적인 PR 관리 및 보고
+
+name: PR Auto Merge
+
+on:
+  schedule:
+    # 오전 세션: 오전 업무 시작 직전
+    - cron: "0 9 * * 1-5"  # 평일 오전 9시
+    # 오후 세션: 오후 업무 종료 직전  
+    - cron: "0 18 * * 1-5" # 평일 오후 6시
+  workflow_dispatch: # 수동 실행 가능
+
+jobs:
+  auto-merge:
+    name: "🔄 PR 자동 병합"
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🔍 CI 통과 PR 목록 조회
+        id: pr-list
+        run: |
+          echo "🔎 CI를 통과한 PR 목록 조회 중..."
+          
+          # CI 통과한 PR 목록 가져오기
+          PRS=$(gh pr list --repo ${{ github.repository }} --state open --json number,title,author,createdAt,labels,mergeable,reviewDecision,statusCheckRollup --jq "[.[] | select(.statusCheckRollup[]?.conclusion == \"success\")]")
+          
+          if [ "$PRS" = "[]" ]; then
+            echo "::notice title=PR 없음::CI를 통과한 PR이 없습니다."
+            echo "pr_count=0" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          
+          echo "::notice title=PR 발견::CI 통과 PR: $(echo $PRS | jq length)개"
+          echo "pr_count=$(echo $PRS | jq length)" >> $GITHUB_OUTPUT
+          
+          # PR 정보를 파일에 저장
+          echo "$PRS" > prs_to_merge.json
+          echo "prs_file=prs_to_merge.json" >> $GITHUB_OUTPUT
+
+      - name: 📋 병합 대상 PR 요약
+        if: steps.pr-list.outputs.pr_count != "0"
+        run: |
+          echo "📋 병합 대상 PR 요약:"
+          echo "---" >> $GITHUB_STEP_SUMMARY
+          echo "## 🔄 병합 대상 PR 목록" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          jq -r ".[] | \"- **#\(.number)**: \(.title) (작성자: \(.author.login))\"" prs_to_merge.json >> $GITHUB_STEP_SUMMARY
+          
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**총 \(jq length prs_to_merge.json)개의 PR이 병합 대상입니다.**" >> $GITHUB_STEP_SUMMARY
+
+      - name: 🔄 PR 자동 병합 실행
+        if: steps.pr-list.outputs.pr_count != "0"
+        run: |
+          echo "🔄 PR 자동 병합 시작..."
+          
+          # 각 PR에 대해 병합 시도
+          jq -c ".[]" prs_to_merge.json | while read -r pr; do
+            pr_number=$(echo $pr | jq -r ".number")
+            pr_title=$(echo $pr | jq -r ".title")
+            
+            echo "🔄 PR #$pr_number 병합 시도: $pr_title"
+            
+            # PR 병합 (squash 방식)
+            if gh pr merge $pr_number --squash --delete-branch --repo ${{ github.repository }}; then
+              echo "✅ PR #$pr_number 병합 성공"
+              echo "✅ PR #$pr_number 병합 완료: $pr_title" >> $GITHUB_STEP_SUMMARY
+            else
+              echo "❌ PR #$pr_number 병합 실패"
+              echo "❌ PR #$pr_number 병합 실패: $pr_title" >> $GITHUB_STEP_SUMMARY
+            fi
+          done
+
+      - name: 📊 병합 결과 요약
+        if: steps.pr-list.outputs.pr_count != "0"
+        run: |
+          echo "📊 병합 작업 완료 요약:"
+          echo "---" >> $GITHUB_STEP_SUMMARY
+          echo "## 📊 병합 결과 요약" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**실행 시간:** $(date \"+%Y-%m-%d %H:%M:%S\")" >> $GITHUB_STEP_SUMMARY
+          echo "**세션:** ${{ github.event_name == \"schedule\" && (github.event.schedule == \"0 9 * * 1-5\" && \"오전\" || \"오후\") || \"수동\" }} 세션" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**총 처리 PR:** ${{ steps.pr-list.outputs.pr_count }}개" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "---" >> $GITHUB_STEP_SUMMARY
+          echo "**다음 세션:** ${{ github.event.schedule == \"0 9 * * 1-5\" && \"오후 18:00\" || \"오전 09:00\" }}" >> $GITHUB_STEP_SUMMARY
+
+      - name: 🧹 임시 파일 정리
+        if: always()
+        run: |
+          if [ -f "prs_to_merge.json" ]; then
+            rm -f prs_to_merge.json
+          fi
