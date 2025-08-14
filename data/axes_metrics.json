@@ -1,0 +1,11 @@
+{
+  "st_var_ratio": 0.8406478899078353,
+  "seasonal_corr": 0.010595769074866984,
+  "psi_trigger_rate": 0.008513689014465241,
+  "sk_k_score": 4.732621091787922,
+  "outlier_ratio": 0.0,
+  "dip_stat": NaN,
+  "intra_cluster_density": 0.9055958193848688,
+  "silhouette_approx": 0.0,
+  "density_k": 2
+}
