@@ -3,6 +3,8 @@ on:
   schedule:
     - cron: "17 2 * * *"
   workflow_dispatch:
+permissions:
+  contents: write
 jobs:
   drift:
     runs-on: ubuntu-latest
@@ -11,6 +13,9 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+      - name: Prepare directory
+        run: |
+          mkdir -p metrics
       - name: Generate drift placeholder
         run: |
           echo '{"status":"pending","ts":"'"$(date -u)"'"}' > metrics/nightly_drift.json
