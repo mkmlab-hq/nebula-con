@@ -1,0 +1,11 @@
+[project]
+name = "nebula-con"
+version = "0.1.0"
+description = "Kaggle BigQuery AI Hackathon Project"
+requires-python = ">=3.11"
+dependencies = [
+    "pandas",
+    "google-cloud-bigquery",
+    "google-cloud-storage",
+    "db-dtypes"
+]
