@@ -13,6 +13,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Advanced metrics (Jensen-Shannon divergence, sliding PSI)
 - Report generation & visualization
 
+## [0.2.1] - 2025-08-14
+
+### Added
+- **Threshold enforcement** via `config/metrics_profile_default.json`
+- **Schema validation** with pydantic-based `scripts/validate_metrics_schema.py`
+- **CI pipeline** (`.github/workflows/metrics-ci.yaml`) with artifact upload
+- **Assertion scripts** (`scripts/assert_thresholds.py`) with exit codes and warn_above support
+
+### Fixed
+- **Optional handling** for `dip_stat` in schema and threshold validation
+- **CI integration** ensuring automated quality gates
+
+### Technical Details
+- **Exit codes**: 0=success, 1=threshold violation, 2=file/schema issue
+- **Warning system**: Configurable warn_above thresholds with optional fail-on-warn
+- **Artifact upload**: CI generates and stores metrics JSON for inspection
+
 ## [0.2.0] - 2025-08-14
 
 ### Added
