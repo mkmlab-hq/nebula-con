@@ -63,9 +63,7 @@ def create_bigquery_connection():
                 f"{connection_info.cloud_resource.service_account_id}"
             )
             print("\n   📋 다음 단계:")
-            print(
-                "   1. 위 서비스 계정에 'Vertex AI 사용자' 역할 부여"
-            )
+            print("   1. 위 서비스 계정에 'Vertex AI 사용자' 역할 부여")
             print("   2. Remote Model 생성")
             print("   3. ML.GENERATE_EMBEDDING 테스트")
 

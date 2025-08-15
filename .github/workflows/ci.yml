@@ -70,32 +70,44 @@ jobs:
         uses: actions/checkout@v4
 
       - name: 🐍 Set up Python 3.11
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v4
         with:
           python-version: '3.11'
+          cache: 'pip'
 
       - name: 📦 Install dependencies
         run: |
+          echo "🔧 Python 개발 환경 설정 중..."
           python -m pip install --upgrade pip
+          
+          # 개발 도구 설치 (정확한 버전으로)
+          pip install "black==23.12.1" "isort==5.13.2" "ruff==0.1.6"
+          pip install "pytest==7.4.3" "pytest-cov==4.1.0" "bandit==1.7.5" "safety==2.3.5"
+          
           # 기본 의존성 설치
           pip install pandas numpy scipy
-          # 개발 도구 설치
-          pip install ruff black isort pytest pytest-cov bandit safety
+          
           # requirements.txt가 있으면 추가 설치
           if [ -f requirements.txt ]; then 
             pip install -r requirements.txt
           fi
+          
+          # pyproject.toml 설정 확인
+          echo "📋 pyproject.toml 설정 확인:"
+          python -c "import tomllib; print('✅ pyproject.toml 파싱 성공')" 2>/dev/null || echo "⚠️ tomllib 사용 불가 (Python 3.11+ 필요)"
 
       - name: 🧹 Code formatting check with Black
         run: |
           echo "🔍 코드 포맷팅 검사 중..."
-          black --check --diff .
+          echo "📋 Black 설정: line-length=88, target-version=py311"
+          black --check --diff . --config pyproject.toml
           echo "✅ Black 포맷팅 검사 통과"
 
       - name: 🔧 Import sorting check with isort
         run: |
           echo "🔍 import 정렬 검사 중..."
-          isort --check-only --diff .
+          echo "📋 isort 설정: profile=black, line_length=88"
+          isort --check-only --diff . --config pyproject.toml
           echo "✅ isort 검사 통과"
 
       - name: 🚨 Lint with Ruff
