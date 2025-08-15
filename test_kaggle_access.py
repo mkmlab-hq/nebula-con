@@ -58,7 +58,7 @@ def test_kaggle_bigquery_access():
         print("\n4️⃣ 사용 가능한 Kaggle 관련 데이터셋 검색 중...")
         try:
             query = """
-            SELECT 
+            SELECT
                 table_catalog,
                 table_schema,
                 table_name,

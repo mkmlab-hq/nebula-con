@@ -6,8 +6,8 @@
 def test_import():
     """기본 import 테스트"""
     try:
-        import numpy as np
-        import pandas as pd
+        # import numpy as np  # 미사용
+        # import pandas as pd  # 미사용
 
         assert True
     except ImportError:

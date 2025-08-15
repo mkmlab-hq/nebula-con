@@ -56,7 +56,7 @@ def create_remote_model():
         print("\n4️⃣ 모델 생성 확인...")
 
         check_sql = f"""
-        SELECT 
+    SELECT
           table_id,
           creation_time,
           last_modified_time

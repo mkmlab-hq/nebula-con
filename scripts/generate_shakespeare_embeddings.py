@@ -32,7 +32,7 @@ def generate_shakespeare_embeddings():
         """
 
         sample_results = client.query(sample_query).result()
-        print(f"   📊 Shakespeare 데이터 샘플:")
+        print("   📊 Shakespeare 데이터 샘플:")
         for i, row in enumerate(sample_results, 1):
             print(
                 f"      {i}. 단어: '{row.word}' (빈도: {row.word_count}, 코퍼스: {row.corpus})"
@@ -46,7 +46,7 @@ def generate_shakespeare_embeddings():
         FROM ML.GENERATE_EMBEDDING(
           MODEL `{project_id}.nebula_con_kaggle.text_embedding_remote_model`,
           (
-            SELECT 
+            SELECT
               CONCAT(word, ' (', corpus, ')') AS content
             FROM `{shakespeare_table}`
             WHERE LENGTH(word) > 3
@@ -89,7 +89,7 @@ def generate_shakespeare_embeddings():
         table = client.get_table(table_ref)
 
         print(f"   📊 테이블 행 수: {table.num_rows:,}")
-        print(f"   📋 스키마:")
+        print("   📋 스키마:")
         for field in table.schema:
             print(f"      - {field.name}: {field.field_type}")
 
@@ -97,7 +97,7 @@ def generate_shakespeare_embeddings():
         print("\n6️⃣ 샘플 데이터 확인...")
 
         sample_query = f"""
-        SELECT content, 
+    SELECT content,
                ARRAY_LENGTH(ml_generate_embedding_result) as embedding_dim,
                ml_generate_embedding_statistics
         FROM `{project_id}.nebula_con_kaggle.shakespeare_embeddings`
@@ -105,7 +105,7 @@ def generate_shakespeare_embeddings():
         """
 
         sample_results = client.query(sample_query).result()
-        print(f"   🔍 샘플 데이터:")
+        print("   🔍 샘플 데이터:")
         for i, row in enumerate(sample_results, 1):
             print(f"      {i}. 텍스트: {row.content}")
             print(f"         임베딩 차원: {row.embedding_dim}")

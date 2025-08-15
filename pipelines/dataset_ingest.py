@@ -87,7 +87,7 @@ def compute_density_metrics(
     best_score = -1
     best_k = None
     best_intra = None
-    best_inter = None
+    # best_inter = None  # 미사용 변수
 
     global_center = Xs.mean(axis=0)
     global_mean_center_dist = np.mean(np.linalg.norm(Xs - global_center, axis=1))
@@ -122,7 +122,7 @@ def compute_density_metrics(
             best_score = sil_approx
             best_k = k
             best_intra = intra
-            best_inter = inter
+            # best_inter = inter  # 미사용 변수
 
     if best_k is None or best_intra is None:
         return None, None, None
@@ -142,14 +142,14 @@ def compute_axes(df: pd.DataFrame) -> dict:
     if df[time_col].dtype == "O":
         try:
             df[time_col] = pd.to_datetime(df[time_col])
-        except:
+        except Exception:
             pass
 
     # Convert target to numeric if possible
     if df[target_col].dtype == "O":
         try:
             df[target_col] = pd.Categorical(df[target_col]).codes
-        except:
+        except Exception:
             numeric_cols = df.select_dtypes(include=[np.number]).columns
             if len(numeric_cols) > 0:
                 target_col = numeric_cols[-1]

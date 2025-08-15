@@ -49,7 +49,7 @@ def approximate_dip(x: np.ndarray, grid_size: int = 256) -> Optional[float]:
 
     # Count peaks (negative to positive transitions)
     peaks = np.sum(sign_changes < 0)
-    valleys = np.sum(sign_changes > 0)
+    # valleys = np.sum(sign_changes > 0)  # 미사용 변수
 
     # Handle edge cases
     if peaks <= 1:

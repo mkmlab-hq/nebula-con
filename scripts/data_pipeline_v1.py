@@ -16,12 +16,11 @@
 
 import json
 import logging
-import os
 import sys
 import warnings
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List
 
 import numpy as np
 import pandas as pd
@@ -158,7 +157,7 @@ class DataPipelineV1:
                 return [text]
 
             chunks = []
-            step = int(chunk_size * (1 - overlap))
+            step = int(chunk_size * (1 - overlap)) or 1
 
             for i in range(0, len(words), step):
                 chunk_words = words[i : i + chunk_size]
@@ -166,7 +165,9 @@ class DataPipelineV1:
                 if chunk_text.strip():
                     chunks.append(chunk_text)
 
-            logger.info(f"✅ 청크 생성 완료: {len(chunks)}개 (크기: {chunk_size}, 중복: {overlap})")
+            logger.info(
+                f"✅ 청크 생성 완료: {len(chunks)}개 (크기: {chunk_size}, 중복: {overlap})"
+            )
             return chunks
 
         except Exception as e:
@@ -176,7 +177,7 @@ class DataPipelineV1:
     def vectorize_text(self, text: str) -> np.ndarray:
         """텍스트를 벡터로 변환 (TF-IDF 기반)"""
         try:
-            # 간단한 TF-IDF 구현
+            # 간단한 TF-IDF 구현 (실제로는 해시 빈도 벡터)
             words = text.lower().split()
 
             # 단어 빈도 계산
@@ -190,7 +191,7 @@ class DataPipelineV1:
             # 해시 기반 벡터 생성
             for word, freq in word_freq.items():
                 hash_val = hash(word) % self.config["vector_dimension"]
-                vector[hash_val] = freq
+                vector[hash_val] += freq
 
             # 정규화
             norm = np.linalg.norm(vector)
@@ -250,7 +251,9 @@ class DataPipelineV1:
             # 결과 저장
             self.save_results()
 
-            logger.info(f"✅ 데이터 처리 완료: {len(self.chunks)}개 청크, {self.vectors.shape} 벡터")
+            logger.info(
+                f"✅ 데이터 처리 완료: {len(self.chunks)}개 청크, {self.vectors.shape} 벡터"
+            )
             return True
 
         except Exception as e:
@@ -279,7 +282,9 @@ class DataPipelineV1:
             with open(config_path, "w", encoding="utf-8") as f:
                 json.dump(self.config, f, ensure_ascii=False, indent=2)
 
-            logger.info(f"✅ 결과 저장 완료: {chunks_path}, {metadata_path}, {vectors_path}")
+            logger.info(
+                f"✅ 결과 저장 완료: {chunks_path}, {metadata_path}, {vectors_path}"
+            )
 
         except Exception as e:
             logger.error(f"❌ 결과 저장 실패: {e}")
@@ -297,7 +302,7 @@ class DataPipelineV1:
             # 코사인 유사도 계산
             similarities = []
             for i, vector in enumerate(self.vectors):
-                similarity = np.dot(query_vector, vector)
+                similarity = float(np.dot(query_vector, vector))
                 similarities.append((i, similarity))
 
             # 유사도 순으로 정렬
@@ -314,7 +319,7 @@ class DataPipelineV1:
                         "tags": self.metadata[chunk_idx]["tags"],
                         "score": self.metadata[chunk_idx]["score"],
                         "chunk_text": self.chunks[chunk_idx][:200] + "...",
-                        "similarity": float(similarity),
+                        "similarity": similarity,
                     }
                 )
 
@@ -335,28 +340,15 @@ class DataPipelineV1:
                 return "죄송합니다. 관련 정보를 찾을 수 없습니다."
 
             # 컨텍스트 구성
-            context = "\n\n".join(
-                [
-                    f"제목: {result['title']}\n내용: {result['chunk_text']}\n태그: {result['tags']}"
-                    for result in search_results
-                ]
-            )
-
-            # 기본 프롬프트 생성
-            prompt = f"""다음 정보를 바탕으로 질문에 답변해주세요:
-
-질문: {query}
-
-참고 정보:
-{context}
-
-답변:"""
+            # context 변수 제거 (미사용)
 
             # 간단한 답변 생성 (실제로는 LLM 사용)
             response = f"질문 '{query}'에 대한 답변입니다.\n\n"
             response += "참고한 정보:\n"
             for result in search_results:
-                response += f"- {result['title']} (유사도: {result['similarity']:.3f})\n"
+                response += (
+                    f"- {result['title']} (유사도: {result['similarity']:.3f})\n"
+                )
 
             response += f"\n총 {len(search_results)}개의 관련 문서를 찾았습니다."
 
@@ -392,7 +384,7 @@ class DataPipelineV1:
                 end_time = datetime.now()
                 search_times.append((end_time - start_time).total_seconds())
 
-            avg_search_time = np.mean(search_times)
+            avg_search_time = float(np.mean(search_times)) if search_times else 0.0
 
             # 성능 지표
             performance = {
@@ -464,7 +456,9 @@ def main():
         performance = pipeline.evaluate_performance()
 
         logger.info("🎉 데이터 파이프라인 v1 실행 완료!")
-        logger.info(f"📊 성능 지표: {json.dumps(performance, indent=2, ensure_ascii=False)}")
+        logger.info(
+            f"📊 성능 지표: {json.dumps(performance, indent=2, ensure_ascii=False)}"
+        )
 
         return True
 

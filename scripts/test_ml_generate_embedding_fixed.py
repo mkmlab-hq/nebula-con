@@ -94,7 +94,7 @@ def test_ml_generate_embedding():
                         break
 
                 except Exception as e3:
-                    print(f"   ❌ 모든 방법 실패")
+                    print("   ❌ 모든 방법 실패")
                     print(f"   최종 오류: {str(e3)[:100]}...")
                     raise e3
 

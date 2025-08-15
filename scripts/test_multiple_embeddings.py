@@ -3,7 +3,6 @@
 여러 문장에 대한 임베딩 생성 테스트
 """
 
-from google.api_core.exceptions import BadRequest
 from google.cloud import bigquery
 
 
@@ -33,7 +32,7 @@ def test_multiple_embeddings():
             print(f"\n   🔍 문장 {i}: {sentence}")
 
             query = f"""
-            SELECT 
+            SELECT
               content,
               ml_generate_embedding_result,
               ml_generate_embedding_statistics
@@ -55,7 +54,7 @@ def test_multiple_embeddings():
                     embedding = row["ml_generate_embedding_result"]
                     stats = row["ml_generate_embedding_statistics"]
 
-                    print(f"      ✅ 임베딩 생성 성공!")
+                    print("      ✅ 임베딩 생성 성공!")
                     print(f"         📏 차원: {len(embedding)}")
                     print(f"         🔢 샘플: {embedding[:3]}...")
                     print(f"         📊 통계: 토큰 {stats['token_count']}개")

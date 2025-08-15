@@ -37,7 +37,7 @@ def create_remote_model_detailed():
                 if "text_embedding" in table.table_id:
                     print(f"   🗑️ 기존 모델 삭제: {table.table_id}")
                     client.delete_table(table.reference)
-                    print(f"      ✅ 삭제 완료")
+                    print("      ✅ 삭제 완료")
 
         except Exception as e:
             print(f"   ❌ 데이터셋 확인 실패: {str(e)[:100]}...")
@@ -77,7 +77,7 @@ def create_remote_model_detailed():
                     else:
                         print(f"   ⏳ 진행 중... ({job.state})")
                         time.sleep(1)
-                except Exception as e:
+                except Exception:
                     print(f"   ⏳ 진행 상황 확인 중... ({i+1}/30)")
                     time.sleep(1)
 

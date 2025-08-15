@@ -37,7 +37,7 @@ def generate_kaggle_embeddings():
           (
             SELECT {text_column} AS content
             FROM `{kaggle_table}`
-            WHERE {text_column} IS NOT NULL 
+            WHERE {text_column} IS NOT NULL
             AND LENGTH({text_column}) > 10
             LIMIT 1000  -- 테스트용 제한
           ),
@@ -76,13 +76,13 @@ def generate_kaggle_embeddings():
             table = client.get_table(table_ref)
 
             print(f"   📊 테이블 행 수: {table.num_rows:,}")
-            print(f"   📋 스키마:")
+            print("   📋 스키마:")
             for field in table.schema:
                 print(f"      - {field.name}: {field.field_type}")
 
             # 샘플 데이터 확인
             sample_query = f"""
-            SELECT content, 
+            SELECT content,
                    ARRAY_LENGTH(ml_generate_embedding_result) as embedding_dim,
                    ml_generate_embedding_statistics
             FROM `{project_id}.nebula_con_kaggle.kaggle_embeddings`
@@ -90,7 +90,7 @@ def generate_kaggle_embeddings():
             """
 
             sample_results = client.query(sample_query).result()
-            print(f"\n   🔍 샘플 데이터:")
+            print("\n   🔍 샘플 데이터:")
             for i, row in enumerate(sample_results, 1):
                 print(f"      {i}. 텍스트: {row.content[:50]}...")
                 print(f"         임베딩 차원: {row.embedding_dim}")

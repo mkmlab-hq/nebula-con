@@ -61,7 +61,7 @@ def check_remote_model_status():
         print("\n4️⃣ 모델 존재 확인 쿼리...")
 
         check_query = f"""
-        SELECT 
+    SELECT
           table_id,
           table_type,
           creation_time

@@ -3,7 +3,6 @@
 수정된 캐글 데이터셋 임베딩 생성 - 올바른 공개 데이터셋 참조
 """
 
-from google.api_core.exceptions import BadRequest
 from google.cloud import bigquery
 
 
@@ -22,15 +21,11 @@ def generate_kaggle_embeddings_fixed():
         print("\n2️⃣ 공개 데이터셋 접근 테스트...")
 
         # 간단한 공개 데이터셋 테스트
-        test_query = """
-        SELECT 'test' as status
-        FROM `bigquery-public-data.utility_us.city`
-        LIMIT 1
-        """
+        # test_query = ... (미사용 변수 제거)
 
         try:
-            test_job = client.query(test_query)
-            test_results = test_job.result()
+            # test_job = client.query(test_query)  # 미사용 변수
+            # test_results = test_job.result()  # 미사용 변수
             print("   ✅ 공개 데이터셋 접근 성공")
 
             # 3. 실제 임베딩 생성 (간단한 테스트 데이터로)
@@ -96,13 +91,13 @@ def generate_kaggle_embeddings_fixed():
             table = client.get_table(table_ref)
 
             print(f"   📊 테이블 행 수: {table.num_rows:,}")
-            print(f"   📋 스키마:")
+            print("   📋 스키마:")
             for field in table.schema:
                 print(f"      - {field.name}: {field.field_type}")
 
             # 샘플 데이터 확인
             sample_query = f"""
-            SELECT content, 
+            SELECT content,
                    ARRAY_LENGTH(ml_generate_embedding_result) as embedding_dim,
                    ml_generate_embedding_statistics
             FROM `{project_id}.nebula_con_kaggle.kaggle_embeddings`
@@ -110,7 +105,7 @@ def generate_kaggle_embeddings_fixed():
             """
 
             sample_results = client.query(sample_query).result()
-            print(f"\n   🔍 샘플 데이터:")
+            print("\n   🔍 샘플 데이터:")
             for i, row in enumerate(sample_results, 1):
                 print(f"      {i}. 텍스트: {row.content[:50]}...")
                 print(f"         임베딩 차원: {row.embedding_dim}")

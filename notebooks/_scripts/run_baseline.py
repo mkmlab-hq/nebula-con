@@ -27,7 +27,7 @@ def main():
     if y.dtype == "O":
         try:
             y = pd.Series(pd.Categorical(y).codes, index=y.index)
-        except:
+        except Exception:
             pass
 
     # Use only numeric feature columns (drop timestamp/object/datetime)
@@ -67,7 +67,7 @@ def main():
                     y_shift = pd.Series(
                         pd.Categorical(y_shift).codes, index=y_shift.index
                     )
-                except:
+                except Exception:
                     pass
 
             # Use only numeric columns for shifted dataset as well
@@ -115,7 +115,7 @@ def main():
                                 "mean_diff": mean_diff,
                             }
                         )
-                except:
+                except Exception:
                     continue
 
             shift_intensity.sort(key=lambda x: x["ks_stat"], reverse=True)
