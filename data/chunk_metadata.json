@@ -1,0 +1,47 @@
+[
+  {
+    "doc_id": 1,
+    "chunk_id": "1_0",
+    "title": "How to implement machine learning pipeline?",
+    "tags": "machine-learning,python,scikit-learn",
+    "score": 15,
+    "chunk_index": 0,
+    "total_chunks": 1
+  },
+  {
+    "doc_id": 2,
+    "chunk_id": "2_0",
+    "title": "BigQuery performance optimization tips",
+    "tags": "bigquery,google-cloud,performance",
+    "score": 23,
+    "chunk_index": 0,
+    "total_chunks": 1
+  },
+  {
+    "doc_id": 3,
+    "chunk_id": "3_0",
+    "title": "Natural language processing with transformers",
+    "tags": "nlp,transformers,pytorch",
+    "score": 31,
+    "chunk_index": 0,
+    "total_chunks": 1
+  },
+  {
+    "doc_id": 4,
+    "chunk_id": "4_0",
+    "title": "Data preprocessing best practices",
+    "tags": "data-preprocessing,machine-learning,python",
+    "score": 18,
+    "chunk_index": 0,
+    "total_chunks": 1
+  },
+  {
+    "doc_id": 5,
+    "chunk_id": "5_0",
+    "title": "Model evaluation and validation strategies",
+    "tags": "model-evaluation,validation,machine-learning",
+    "score": 25,
+    "chunk_index": 0,
+    "total_chunks": 1
+  }
+]

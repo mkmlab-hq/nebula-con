@@ -1,6 +1,18 @@
-pandas
-numpy
-scikit-learn
-pyarrow
-tqdm
-scipy
+# 캐글 BigQuery AI 해커톤 필수 패키지
+pandas>=1.5.0
+numpy>=1.21.0
+scikit-learn>=1.1.0
+scipy>=1.9.0
+
+# 기본 유틸리티
+tqdm>=4.64.0
+pyarrow>=8.0.0
+
+# 개발 도구 (CI/CD용)
+pytest>=7.0.0
+pytest-cov>=4.0.0
+black>=22.0.0
+isort>=5.10.0
+ruff>=0.0.200
+bandit>=1.7.0
+safety>=2.3.0
