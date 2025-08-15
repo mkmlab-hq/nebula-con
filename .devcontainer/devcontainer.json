@@ -1,14 +1,20 @@
 {
-	"name": "NebulaCon Codespace",
-	"image": "mcr.microsoft.com/devcontainers/python:3.11",
-	"features": {},
-	"postCreateCommand": "python -m pip install --upgrade pip && pip install -r requirements.txt",
-	"customizations": {
-		"vscode": {
-			"extensions": [
-				"ms-python.python",
-				"ms-toolsai.jupyter"
-			]
-		}
-	}
+    "name": "NebulaCon Codespace",
+    "image": "mcr.microsoft.com/devcontainers/python:3.11",
+    "features": {
+        "ghcr.io/devcontainers/features/sshd:1": {
+            "version": "latest"
+        }
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-python.python",
+                "ms-python.black-formatter",
+                "ms-python.isort"
+            ]
+        }
+    },
+    "postCreateCommand": "pip install black==23.12.1 isort==5.13.2",
+    "remoteUser": "codespace"
 } 
