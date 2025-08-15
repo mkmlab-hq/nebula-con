@@ -1,5 +1,6 @@
-import numpy as np
 from typing import Optional
+
+import numpy as np
 
 
 def population_stability_index(expected, actual, bins=10, min_samples=50):

@@ -3,8 +3,8 @@
 최종 ML.GENERATE_EMBEDDING 테스트 - FROM 절 사용
 """
 
-from google.cloud import bigquery
 from google.api_core.exceptions import BadRequest
+from google.cloud import bigquery
 
 
 def test_ml_generate_embedding_final():

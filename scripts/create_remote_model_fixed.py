@@ -3,8 +3,8 @@
 수정된 Remote Model 생성 스크립트 - OPTIONS 완전 포함
 """
 
-from google.cloud import bigquery
 from google.api_core.exceptions import BadRequest
+from google.cloud import bigquery
 
 
 def create_remote_model_fixed():

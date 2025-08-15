@@ -3,8 +3,8 @@
 여러 문장에 대한 임베딩 생성 테스트
 """
 
-from google.cloud import bigquery
 from google.api_core.exceptions import BadRequest
+from google.cloud import bigquery
 
 
 def test_multiple_embeddings():

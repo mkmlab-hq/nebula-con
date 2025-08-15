@@ -3,8 +3,9 @@
 자세한 모니터링과 오류 처리를 포함한 Remote Model 생성
 """
 
-from google.cloud import bigquery
 import time
+
+from google.cloud import bigquery
 
 
 def create_remote_model_detailed():

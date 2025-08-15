@@ -3,10 +3,9 @@
 BigQuery Connection 생성 스크립트
 """
 
-from google.cloud import bigquery
-from google.cloud import bigquery_connection_v1
-from google.cloud.bigquery_connection_v1 import Connection
-from google.cloud.bigquery_connection_v1 import CloudResourceProperties
+from google.cloud import bigquery, bigquery_connection_v1
+from google.cloud.bigquery_connection_v1 import (CloudResourceProperties,
+                                                 Connection)
 
 
 def create_bigquery_connection():

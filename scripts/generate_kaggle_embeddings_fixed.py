@@ -3,8 +3,8 @@
 수정된 캐글 데이터셋 임베딩 생성 - 올바른 공개 데이터셋 참조
 """
 
-from google.cloud import bigquery
 from google.api_core.exceptions import BadRequest
+from google.cloud import bigquery
 
 
 def generate_kaggle_embeddings_fixed():

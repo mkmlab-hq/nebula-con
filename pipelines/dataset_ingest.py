@@ -1,8 +1,14 @@
-import pandas as pd, json, hashlib, time, argparse
+import argparse
+import hashlib
+import json
+import time
 from pathlib import Path
+
 import numpy as np
+import pandas as pd
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
+
 from utils.dip import approximate_dip
 
 

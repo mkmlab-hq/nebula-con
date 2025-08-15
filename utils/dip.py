@@ -1,5 +1,6 @@
-import numpy as np
 from typing import Optional
+
+import numpy as np
 
 
 def approximate_dip(x: np.ndarray, grid_size: int = 256) -> Optional[float]:

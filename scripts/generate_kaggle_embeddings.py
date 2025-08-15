@@ -3,8 +3,8 @@
 캐글 데이터셋에 임베딩 생성 및 저장
 """
 
-from google.cloud import bigquery
 from google.api_core.exceptions import BadRequest
+from google.cloud import bigquery
 
 
 def generate_kaggle_embeddings():

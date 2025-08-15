@@ -3,8 +3,7 @@
 Remote Model 상태 및 Connection 설정 확인
 """
 
-from google.cloud import bigquery
-from google.cloud import bigquery_connection_v1
+from google.cloud import bigquery, bigquery_connection_v1
 
 
 def check_remote_model_status():
