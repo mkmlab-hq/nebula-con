@@ -58,9 +58,7 @@ def check_kaggle_dataset():
                             text_columns.append(field.name)
 
                     if text_columns:
-                        print(
-                            f"      📝 텍스트 컬럼: {', '.join(text_columns[:5])}"
-                        )
+                        print(f"      📝 텍스트 컬럼: {', '.join(text_columns[:5])}")
                     else:
                         print(f"      ⚠️ 텍스트 컬럼 없음")
 

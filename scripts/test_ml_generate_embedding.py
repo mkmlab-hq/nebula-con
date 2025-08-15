@@ -68,9 +68,7 @@ def test_ml_generate_embedding():
                 results = query_job.result()
 
                 for row in results:
-                    print(
-                        f"   ✅ 문장 {i} 임베딩 생성 성공: {sentence[:50]}..."
-                    )
+                    print(f"   ✅ 문장 {i} 임베딩 생성 성공: {sentence[:50]}...")
                     break
 
             except Exception as e:

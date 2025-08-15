@@ -51,9 +51,7 @@ def create_bigquery_connection():
         time.sleep(10)
 
         connection_path = f"{parent}/connections/my_vertex_ai_connection"
-        connection_info = connection_client.get_connection(
-            name=connection_path
-        )
+        connection_info = connection_client.get_connection(name=connection_path)
 
         print("   ✅ Connection 생성 완료!")
         print(f"   🔗 Connection 이름: {connection_info.name}")

@@ -30,9 +30,7 @@ def population_stability_index(expected, actual, bins=10, min_samples=50):
 
     # Create bins with small epsilon to avoid edge issues
     epsilon = 1e-10
-    bin_edges = np.linspace(
-        global_min - epsilon, global_max + epsilon, bins + 1
-    )
+    bin_edges = np.linspace(global_min - epsilon, global_max + epsilon, bins + 1)
 
     # Calculate histograms
     expected_hist, _ = np.histogram(expected, bins=bin_edges)
@@ -50,8 +48,6 @@ def population_stability_index(expected, actual, bins=10, min_samples=50):
     psi = 0.0
     for i in range(len(expected_p)):
         if expected_p[i] > 0 and actual_p[i] > 0:
-            psi += (actual_p[i] - expected_p[i]) * np.log(
-                actual_p[i] / expected_p[i]
-            )
+            psi += (actual_p[i] - expected_p[i]) * np.log(actual_p[i] / expected_p[i])
 
     return float(psi)

@@ -59,13 +59,9 @@ def test_ml_generate_embedding():
                 elif "404" in error_msg:
                     print("         → 404 Not Found: 모델이 존재하지 않음")
                 elif "400" in error_msg:
-                    print(
-                        "         → 400 Bad Request: 구문 오류 또는 잘못된 요청"
-                    )
+                    print("         → 400 Bad Request: 구문 오류 또는 잘못된 요청")
                 elif "500" in error_msg:
-                    print(
-                        "         → 500 Internal Server Error: 서버 내부 오류"
-                    )
+                    print("         → 500 Internal Server Error: 서버 내부 오류")
                 else:
                     print("         → 기타 오류")
 

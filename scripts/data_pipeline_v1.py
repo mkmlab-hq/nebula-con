@@ -111,9 +111,7 @@ class DataPipelineV1:
             csv_path = self.data_dir / "sample_questions.csv"
             df.to_csv(csv_path, index=False)
 
-            logger.info(
-                f"✅ 샘플 데이터 로딩 완료: {len(df)}개, 저장: {csv_path}"
-            )
+            logger.info(f"✅ 샘플 데이터 로딩 완료: {len(df)}개, 저장: {csv_path}")
             return df
 
         except Exception as e:
@@ -212,14 +210,10 @@ class DataPipelineV1:
             logger.info("🔄 데이터 처리 파이프라인 시작...")
 
             # 텍스트 컬럼 결합
-            df["combined_text"] = (
-                df["title"].fillna("") + " " + df["body"].fillna("")
-            )
+            df["combined_text"] = df["title"].fillna("") + " " + df["body"].fillna("")
 
             # 전처리
-            df["processed_text"] = df["combined_text"].apply(
-                self.preprocess_text
-            )
+            df["processed_text"] = df["combined_text"].apply(self.preprocess_text)
 
             # 청킹
             all_chunks = []
@@ -367,11 +361,11 @@ class DataPipelineV1:
             response = f"질문 '{query}'에 대한 답변입니다.\n\n"
             response += "참고한 정보:\n"
             for result in search_results:
-                response += f"- {result['title']} (유사도: {result['similarity']:.3f})\n"
+                response += (
+                    f"- {result['title']} (유사도: {result['similarity']:.3f})\n"
+                )
 
-            response += (
-                f"\n총 {len(search_results)}개의 관련 문서를 찾았습니다."
-            )
+            response += f"\n총 {len(search_results)}개의 관련 문서를 찾았습니다."
 
             logger.info(f"✅ RAG 답변 생성 완료: '{query}'")
             return response
@@ -385,9 +379,7 @@ class DataPipelineV1:
         try:
             # 메모리 사용량
             memory_usage = (
-                self.vectors.nbytes / (1024**3)
-                if self.vectors is not None
-                else 0
+                self.vectors.nbytes / (1024**3) if self.vectors is not None else 0
             )
 
             # 처리 시간 측정 (시뮬레이션)
@@ -418,9 +410,7 @@ class DataPipelineV1:
                 "avg_search_time_seconds": round(avg_search_time, 3),
                 "target_memory_gb": self.config["max_memory_gb"],
                 "target_search_time": self.config["max_response_time"],
-                "memory_target_met": bool(
-                    memory_usage <= self.config["max_memory_gb"]
-                ),
+                "memory_target_met": bool(memory_usage <= self.config["max_memory_gb"]),
                 "search_time_target_met": bool(
                     avg_search_time <= self.config["max_response_time"]
                 ),

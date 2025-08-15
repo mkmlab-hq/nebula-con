@@ -92,9 +92,7 @@ def generate_kaggle_embeddings_fixed():
             # 5. 결과 확인
             print("\n5️⃣ 결과 확인...")
 
-            table_ref = client.dataset("nebula_con_kaggle").table(
-                "kaggle_embeddings"
-            )
+            table_ref = client.dataset("nebula_con_kaggle").table("kaggle_embeddings")
             table = client.get_table(table_ref)
 
             print(f"   📊 테이블 행 수: {table.num_rows:,}")

@@ -23,9 +23,7 @@ def generate_kaggle_embeddings():
 
         # 캐글 제공 BigQuery 데이터셋 예시
         # 실제 캐글 대회 데이터셋 경로로 변경 필요
-        kaggle_table = (
-            "bigquery-public-data.stackoverflow.posts.posts_questions"
-        )
+        kaggle_table = "bigquery-public-data.stackoverflow.posts.posts_questions"
         text_column = "title"  # 실제 텍스트 컬럼명으로 변경
 
         print(f"   📊 소스 테이블: {kaggle_table}")
@@ -58,9 +56,7 @@ def generate_kaggle_embeddings():
         print("\n3️⃣ 결과를 새 테이블에 저장...")
 
         job_config = bigquery.QueryJobConfig(
-            destination=client.dataset("nebula_con_kaggle").table(
-                "kaggle_embeddings"
-            ),
+            destination=client.dataset("nebula_con_kaggle").table("kaggle_embeddings"),
             write_disposition="WRITE_TRUNCATE",  # 기존 테이블 덮어쓰기
         )
 
@@ -76,9 +72,7 @@ def generate_kaggle_embeddings():
             print("\n4️⃣ 결과 확인...")
 
             # 저장된 테이블 정보 확인
-            table_ref = client.dataset("nebula_con_kaggle").table(
-                "kaggle_embeddings"
-            )
+            table_ref = client.dataset("nebula_con_kaggle").table("kaggle_embeddings")
             table = client.get_table(table_ref)
 
             print(f"   📊 테이블 행 수: {table.num_rows:,}")

@@ -70,9 +70,7 @@ def create_remote_model_fixed():
                     print(f"      - 모델: {model.model_id}")
                     print(f"        생성 시간: {model.created}")
             else:
-                print(
-                    "   ⚠️ 모델 목록에서 확인되지 않음 (테이블 목록에서 확인)"
-                )
+                print("   ⚠️ 모델 목록에서 확인되지 않음 (테이블 목록에서 확인)")
 
                 tables = list(client.list_tables(dataset_id))
                 print(f"   📊 테이블 목록에서 확인: {len(tables)}")

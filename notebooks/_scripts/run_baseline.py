@@ -103,9 +103,7 @@ def main():
                     shift_vals = X_shift[col].dropna().values
                     if len(base_vals) > 30 and len(shift_vals) > 30:
                         ks_stat = ks_2samp(base_vals, shift_vals).statistic
-                        mean_diff = float(
-                            np.mean(shift_vals) - np.mean(base_vals)
-                        )
+                        mean_diff = float(np.mean(shift_vals) - np.mean(base_vals))
                         shift_intensity.append(
                             {
                                 "feature": col,

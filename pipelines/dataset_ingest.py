@@ -16,9 +16,7 @@ def profile(df: pd.DataFrame) -> dict:
         "cols": int(df.shape[1]),
         "null_pct": df.isna().mean().round(4).to_dict(),
         "numeric_desc": df.describe(include="number").round(4).to_dict(),
-        "hash_head100": hashlib.md5(
-            str(df.head(100).to_dict()).encode()
-        ).hexdigest(),
+        "hash_head100": hashlib.md5(str(df.head(100).to_dict()).encode()).hexdigest(),
     }
 
 
@@ -43,9 +41,7 @@ def population_stability_index(expected, actual, bins=10, min_samples=50):
         return 0.0
 
     epsilon = 1e-10
-    bin_edges = np.linspace(
-        global_min - epsilon, global_max + epsilon, bins + 1
-    )
+    bin_edges = np.linspace(global_min - epsilon, global_max + epsilon, bins + 1)
 
     expected_hist, _ = np.histogram(expected, bins=bin_edges)
     actual_hist, _ = np.histogram(actual, bins=bin_edges)
@@ -59,9 +55,7 @@ def population_stability_index(expected, actual, bins=10, min_samples=50):
     psi = 0.0
     for i in range(len(expected_p)):
         if expected_p[i] > 0 and actual_p[i] > 0:
-            psi += (actual_p[i] - expected_p[i]) * np.log(
-                actual_p[i] / expected_p[i]
-            )
+            psi += (actual_p[i] - expected_p[i]) * np.log(actual_p[i] / expected_p[i])
 
     return float(psi)
 
@@ -90,9 +84,7 @@ def compute_density_metrics(
     best_inter = None
 
     global_center = Xs.mean(axis=0)
-    global_mean_center_dist = np.mean(
-        np.linalg.norm(Xs - global_center, axis=1)
-    )
+    global_mean_center_dist = np.mean(np.linalg.norm(Xs - global_center, axis=1))
     global_ref = 2 * global_mean_center_dist
 
     for k in k_range:
@@ -205,9 +197,7 @@ def compute_axes(df: pd.DataFrame) -> dict:
         if target_col in num_df.columns:
             drop_cols.append(target_col)
 
-        X = num_df.drop(
-            columns=[c for c in drop_cols if c in num_df.columns]
-        ).values
+        X = num_df.drop(columns=[c for c in drop_cols if c in num_df.columns]).values
         intra_density, sil_approx, k_used = compute_density_metrics(X)
     except Exception:
         intra_density, sil_approx, k_used = None, None, None

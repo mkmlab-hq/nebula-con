@@ -70,9 +70,7 @@ def test_kaggle_bigquery_access():
 
             print("   📊 사용 가능한 테이블:")
             for row in results:
-                print(
-                    f"      - {row.table_schema}.{row.table_name} ({row.table_type})"
-                )
+                print(f"      - {row.table_schema}.{row.table_name} ({row.table_type})")
 
         except Exception as e:
             print(f"   ❌ 스키마 정보 접근 실패: {str(e)[:100]}...")

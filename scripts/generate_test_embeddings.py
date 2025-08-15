@@ -63,9 +63,7 @@ def generate_test_embeddings():
         print("\n4️⃣ 결과를 새 테이블에 저장...")
 
         job_config = bigquery.QueryJobConfig(
-            destination=client.dataset("nebula_con_kaggle").table(
-                "test_embeddings"
-            ),
+            destination=client.dataset("nebula_con_kaggle").table("test_embeddings"),
             write_disposition="WRITE_TRUNCATE",
         )
 
@@ -79,9 +77,7 @@ def generate_test_embeddings():
         # 5. 결과 확인
         print("\n5️⃣ 결과 확인...")
 
-        table_ref = client.dataset("nebula_con_kaggle").table(
-            "test_embeddings"
-        )
+        table_ref = client.dataset("nebula_con_kaggle").table("test_embeddings")
         table = client.get_table(table_ref)
 
         print(f"   📊 테이블 행 수: {table.num_rows:,}")

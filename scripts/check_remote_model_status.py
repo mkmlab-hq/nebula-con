@@ -43,14 +43,10 @@ def check_remote_model_status():
         print("\n3️⃣ BigQuery Connection 상태 확인...")
 
         try:
-            connection_client = (
-                bigquery_connection_v1.ConnectionServiceClient()
-            )
+            connection_client = bigquery_connection_v1.ConnectionServiceClient()
             connection_path = f"projects/{project_id}/locations/us-central1/connections/my_vertex_ai_connection"
 
-            connection_info = connection_client.get_connection(
-                name=connection_path
-            )
+            connection_info = connection_client.get_connection(name=connection_path)
             print(f"   ✅ Connection 존재: {connection_info.name}")
             print(f"      상태: {connection_info.state}")
 

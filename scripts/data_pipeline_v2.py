@@ -63,9 +63,7 @@ class DataPipelineV2:
         self.metadata = []
         self.word_vectors = {}  # Word2Vec 스타일 벡터
 
-        logger.info(
-            f"🚀 Phase 2 데이터 파이프라인 v2 초기화 완료: {datetime.now()}"
-        )
+        logger.info(f"🚀 Phase 2 데이터 파이프라인 v2 초기화 완료: {datetime.now()}")
 
     def load_extended_sample_data(self) -> pd.DataFrame:
         """확장된 샘플 데이터 로딩 (Phase 2용)"""
@@ -231,10 +229,7 @@ class DataPipelineV2:
                 for i in range(0, len(words), step):
                     chunk_words = words[i : i + chunk_size]
                     chunk_text = " ".join(chunk_words)
-                    if (
-                        len(chunk_text) >= min_length
-                        and len(chunk_text) <= max_length
-                    ):
+                    if len(chunk_text) >= min_length and len(chunk_text) <= max_length:
                         chunks.append(chunk_text)
 
                 logger.info(f"✅ 단어 기반 청킹 완료: {len(chunks)}개")
@@ -306,9 +301,9 @@ class DataPipelineV2:
                     word_freq[word] = word_freq.get(word, 0) + 1
 
             # 상위 빈도 단어만 선택 (차원 제한)
-            top_words = sorted(
-                word_freq.items(), key=lambda x: x[1], reverse=True
-            )[:1000]
+            top_words = sorted(word_freq.items(), key=lambda x: x[1], reverse=True)[
+                :1000
+            ]
 
             # 각 단어에 대해 랜덤 벡터 생성 (실제로는 Word2Vec 사용)
             for word, freq in top_words:
@@ -339,9 +334,7 @@ class DataPipelineV2:
 
             # 차원 조정 (768차원으로)
             if len(combined_vector) > self.config["vector_dimension"]:
-                combined_vector = combined_vector[
-                    : self.config["vector_dimension"]
-                ]
+                combined_vector = combined_vector[: self.config["vector_dimension"]]
             elif len(combined_vector) < self.config["vector_dimension"]:
                 padding = np.zeros(
                     self.config["vector_dimension"] - len(combined_vector)
@@ -405,9 +398,7 @@ class DataPipelineV2:
             logger.info("🔄 Phase 2 확장된 데이터 처리 파이프라인 시작...")
 
             # 텍스트 컬럼 결합
-            df["combined_text"] = (
-                df["title"].fillna("") + " " + df["body"].fillna("")
-            )
+            df["combined_text"] = df["title"].fillna("") + " " + df["body"].fillna("")
 
             # 고도화된 전처리
             df["processed_text"] = df["combined_text"].apply(
@@ -416,9 +407,7 @@ class DataPipelineV2:
 
             # 단어 벡터 생성
             logger.info("🔄 단어 벡터 생성 시작...")
-            self.word_vectors = self.create_word_vectors(
-                df["processed_text"].tolist()
-            )
+            self.word_vectors = self.create_word_vectors(df["processed_text"].tolist())
 
             # 의미적 청킹
             all_chunks = []
@@ -487,13 +476,10 @@ class DataPipelineV2:
             # 단어 벡터 저장
             word_vectors_path = self.data_dir / "word_vectors.json"
             word_vectors_serializable = {
-                word: vector.tolist()
-                for word, vector in self.word_vectors.items()
+                word: vector.tolist() for word, vector in self.word_vectors.items()
             }
             with open(word_vectors_path, "w", encoding="utf-8") as f:
-                json.dump(
-                    word_vectors_serializable, f, ensure_ascii=False, indent=2
-                )
+                json.dump(word_vectors_serializable, f, ensure_ascii=False, indent=2)
 
             # 설정 저장
             config_path = self.data_dir / "pipeline_v2_config.json"
@@ -512,15 +498,11 @@ class DataPipelineV2:
         try:
             # 메모리 사용량
             memory_usage = (
-                self.vectors.nbytes / (1024**3)
-                if self.vectors is not None
-                else 0
+                self.vectors.nbytes / (1024**3) if self.vectors is not None else 0
             )
 
             # 처리 시간 측정
-            processing_time = (
-                len(self.chunks) * 0.02
-            )  # Phase 2는 더 복잡하므로 0.02초
+            processing_time = len(self.chunks) * 0.02  # Phase 2는 더 복잡하므로 0.02초
 
             # 검색 성능 테스트
             test_queries = [
@@ -558,9 +540,7 @@ class DataPipelineV2:
                 "word_vectors_count": len(self.word_vectors),
                 "target_memory_gb": self.config["max_memory_gb"],
                 "target_search_time": self.config["max_response_time"],
-                "memory_target_met": bool(
-                    memory_usage <= self.config["max_memory_gb"]
-                ),
+                "memory_target_met": bool(memory_usage <= self.config["max_memory_gb"]),
                 "search_time_target_met": bool(
                     avg_search_time <= self.config["max_response_time"]
                 ),
@@ -606,9 +586,7 @@ class DataPipelineV2:
                         "chunk_id": self.metadata[chunk_idx]["chunk_id"],
                         "title": self.metadata[chunk_idx]["title"],
                         "tags": self.metadata[chunk_idx]["tags"],
-                        "category": self.metadata[chunk_idx].get(
-                            "category", "unknown"
-                        ),
+                        "category": self.metadata[chunk_idx].get("category", "unknown"),
                         "score": self.metadata[chunk_idx]["score"],
                         "chunk_text": self.chunks[chunk_idx][:200] + "...",
                         "similarity": float(similarity),
@@ -656,9 +634,7 @@ def main():
         for query in test_queries:
             search_results = pipeline.search(query)
             if search_results:
-                logger.info(
-                    f"✅ '{query}' 검색 성공: {len(search_results)}개 결과"
-                )
+                logger.info(f"✅ '{query}' 검색 성공: {len(search_results)}개 결과")
             else:
                 logger.warning(f"⚠️ '{query}' 검색 결과 없음")
 
