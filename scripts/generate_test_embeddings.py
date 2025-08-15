@@ -45,7 +45,7 @@ def generate_test_embeddings():
           (
             SELECT sentence AS content
             FROM UNNEST([
-              {', '.join([f"'{sentence}'" for sentence in test_sentences])}
+              {", ".join([f"'{sentence}'" for sentence in test_sentences])}
             ]) AS sentence
           ),
           STRUCT(

@@ -78,7 +78,7 @@ def create_remote_model_detailed():
                         print(f"   ⏳ 진행 중... ({job.state})")
                         time.sleep(1)
                 except Exception:
-                    print(f"   ⏳ 진행 상황 확인 중... ({i+1}/30)")
+                    print(f"   ⏳ 진행 상황 확인 중... ({i + 1}/30)")
                     time.sleep(1)
 
             # 결과 확인
