@@ -1,5 +1,5 @@
 import numpy as np
-from typing import Optional
+
 
 def population_stability_index(expected, actual, bins=10, min_samples=50):
     """Calculate Population Stability Index (PSI) between two distributions."""
@@ -47,5 +47,4 @@ def population_stability_index(expected, actual, bins=10, min_samples=50):
     for i in range(len(expected_p)):
         if expected_p[i] > 0 and actual_p[i] > 0:
             psi += (actual_p[i] - expected_p[i]) * np.log(actual_p[i] / expected_p[i])
-
     return float(psi)
