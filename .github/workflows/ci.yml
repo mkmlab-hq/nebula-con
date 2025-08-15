@@ -101,7 +101,7 @@ jobs:
         run: |
           echo "🔍 코드 포맷팅 검사 중..."
           echo "📋 Black 설정: line-length=88, target-version=py311"
-          black --check --diff . --config pyproject.toml
+          black --check --diff . --line-length=88 --target-version=py311
           echo "✅ Black 포맷팅 검사 통과"
 
       - name: 🔧 Import sorting check with isort
@@ -109,7 +109,7 @@ jobs:
         run: |
           echo "🔍 import 정렬 검사 중..."
           echo "📋 isort 설정: profile=black, line_length=88"
-          isort --check-only --diff . --config .isort.cfg
+          isort --check-only --diff . --profile=black --line-length=88
           echo "✅ isort 검사 통과"
 
       - name: 🚨 Lint with Ruff
