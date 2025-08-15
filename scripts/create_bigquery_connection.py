@@ -4,10 +4,7 @@ BigQuery Connection 생성 스크립트
 """
 
 from google.cloud import bigquery, bigquery_connection_v1
-from google.cloud.bigquery_connection_v1 import (
-    CloudResourceProperties,
-    Connection,
-)
+from google.cloud.bigquery_connection_v1 import CloudResourceProperties, Connection
 
 
 def create_bigquery_connection():
@@ -59,8 +56,7 @@ def create_bigquery_connection():
 
         if connection_info.cloud_resource.service_account_id:
             print(
-                f"   👤 서비스 계정: "
-                f"{connection_info.cloud_resource.service_account_id}"
+                f"   👤 서비스 계정: " f"{connection_info.cloud_resource.service_account_id}"
             )
             print("\n   📋 다음 단계:")
             print("   1. 위 서비스 계정에 'Vertex AI 사용자' 역할 부여")

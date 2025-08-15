@@ -55,9 +55,7 @@ def create_remote_model_fixed():
             job.result()  # 쿼리 완료 대기
 
             print("   ✅ Remote Model 생성 성공!")
-            print(
-                f"   📍 모델 경로: {project_id}.{dataset_id}.text_embedding_remote_model"
-            )
+            print(f"   📍 모델 경로: {project_id}.{dataset_id}.text_embedding_remote_model")
 
             # 4. 모델 생성 확인
             print("\n4️⃣ 모델 생성 확인...")

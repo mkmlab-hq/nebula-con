@@ -166,9 +166,7 @@ class DataPipelineV1:
                 if chunk_text.strip():
                     chunks.append(chunk_text)
 
-            logger.info(
-                f"✅ 청크 생성 완료: {len(chunks)}개 (크기: {chunk_size}, 중복: {overlap})"
-            )
+            logger.info(f"✅ 청크 생성 완료: {len(chunks)}개 (크기: {chunk_size}, 중복: {overlap})")
             return chunks
 
         except Exception as e:
@@ -252,9 +250,7 @@ class DataPipelineV1:
             # 결과 저장
             self.save_results()
 
-            logger.info(
-                f"✅ 데이터 처리 완료: {len(self.chunks)}개 청크, {self.vectors.shape} 벡터"
-            )
+            logger.info(f"✅ 데이터 처리 완료: {len(self.chunks)}개 청크, {self.vectors.shape} 벡터")
             return True
 
         except Exception as e:
@@ -283,9 +279,7 @@ class DataPipelineV1:
             with open(config_path, "w", encoding="utf-8") as f:
                 json.dump(self.config, f, ensure_ascii=False, indent=2)
 
-            logger.info(
-                f"✅ 결과 저장 완료: {chunks_path}, {metadata_path}, {vectors_path}"
-            )
+            logger.info(f"✅ 결과 저장 완료: {chunks_path}, {metadata_path}, {vectors_path}")
 
         except Exception as e:
             logger.error(f"❌ 결과 저장 실패: {e}")
@@ -362,9 +356,7 @@ class DataPipelineV1:
             response = f"질문 '{query}'에 대한 답변입니다.\n\n"
             response += "참고한 정보:\n"
             for result in search_results:
-                response += (
-                    f"- {result['title']} (유사도: {result['similarity']:.3f})\n"
-                )
+                response += f"- {result['title']} (유사도: {result['similarity']:.3f})\n"
 
             response += f"\n총 {len(search_results)}개의 관련 문서를 찾았습니다."
 
@@ -472,9 +464,7 @@ def main():
         performance = pipeline.evaluate_performance()
 
         logger.info("🎉 데이터 파이프라인 v1 실행 완료!")
-        logger.info(
-            f"📊 성능 지표: {json.dumps(performance, indent=2, ensure_ascii=False)}"
-        )
+        logger.info(f"📊 성능 지표: {json.dumps(performance, indent=2, ensure_ascii=False)}")
 
         return True
 

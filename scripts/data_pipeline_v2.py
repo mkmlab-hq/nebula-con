@@ -161,9 +161,7 @@ class DataPipelineV2:
             csv_path = self.data_dir / "extended_sample_questions.csv"
             df.to_csv(csv_path, index=False)
 
-            logger.info(
-                f"✅ 확장된 샘플 데이터 로딩 완료: {len(df)}개, 저장: {csv_path}"
-            )
+            logger.info(f"✅ 확장된 샘플 데이터 로딩 완료: {len(df)}개, 저장: {csv_path}")
             return df
 
         except Exception as e:
