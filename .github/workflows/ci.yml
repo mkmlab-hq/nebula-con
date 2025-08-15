@@ -97,6 +97,7 @@ jobs:
           python -c "import tomllib; print('✅ pyproject.toml 파싱 성공')" 2>/dev/null || echo "⚠️ tomllib 사용 불가 (Python 3.11+ 필요)"
 
       - name: 🧹 Code formatting check with Black
+        working-directory: ${{ github.workspace }}
         run: |
           echo "🔍 코드 포맷팅 검사 중..."
           echo "📋 Black 설정: line-length=88, target-version=py311"
@@ -104,10 +105,11 @@ jobs:
           echo "✅ Black 포맷팅 검사 통과"
 
       - name: 🔧 Import sorting check with isort
+        working-directory: ${{ github.workspace }}
         run: |
           echo "🔍 import 정렬 검사 중..."
           echo "📋 isort 설정: profile=black, line_length=88"
-          isort --check-only --diff . --config pyproject.toml
+          isort --check-only --diff . --config .isort.cfg
           echo "✅ isort 검사 통과"
 
       - name: 🚨 Lint with Ruff
