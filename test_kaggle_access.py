@@ -4,8 +4,9 @@ Kaggle BigQuery AI 모델 접근 테스트 스크립트
 """
 
 import sys
-from google.cloud import bigquery
+
 from google.auth import default
+from google.cloud import bigquery
 
 
 def test_kaggle_bigquery_access():
