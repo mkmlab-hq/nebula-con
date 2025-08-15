@@ -5,58 +5,70 @@ from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
 from utils.dip import approximate_dip
 
+
 def ingest_csv(path: str) -> pd.DataFrame:
     return pd.read_csv(path)
+
 
 def profile(df: pd.DataFrame) -> dict:
     return {
         "rows": int(len(df)),
         "cols": int(df.shape[1]),
         "null_pct": df.isna().mean().round(4).to_dict(),
-        "numeric_desc": df.describe(include='number').round(4).to_dict(),
-        "hash_head100": hashlib.md5(str(df.head(100).to_dict()).encode()).hexdigest()
+        "numeric_desc": df.describe(include="number").round(4).to_dict(),
+        "hash_head100": hashlib.md5(
+            str(df.head(100).to_dict()).encode()
+        ).hexdigest(),
     }
+
 
 def population_stability_index(expected, actual, bins=10, min_samples=50):
     """Calculate Population Stability Index (PSI) between two distributions."""
     expected = np.array(expected, dtype=float)
     actual = np.array(actual, dtype=float)
-    
+
     expected = expected[~np.isnan(expected)]
     actual = actual[~np.isnan(actual)]
-    
+
     if len(expected) < min_samples or len(actual) < min_samples:
         return 0.0
-    
+
     if np.array_equal(expected, actual):
         return 0.0
-    
+
     global_min = min(np.min(expected), np.min(actual))
     global_max = max(np.max(expected), np.max(actual))
-    
+
     if global_min == global_max:
         return 0.0
-    
+
     epsilon = 1e-10
-    bin_edges = np.linspace(global_min - epsilon, global_max + epsilon, bins + 1)
-    
+    bin_edges = np.linspace(
+        global_min - epsilon, global_max + epsilon, bins + 1
+    )
+
     expected_hist, _ = np.histogram(expected, bins=bin_edges)
     actual_hist, _ = np.histogram(actual, bins=bin_edges)
-    
+
     expected_hist = expected_hist.astype(float) + 1e-10
     actual_hist = actual_hist.astype(float) + 1e-10
-    
+
     expected_p = expected_hist / np.sum(expected_hist)
     actual_p = actual_hist / np.sum(actual_hist)
-    
+
     psi = 0.0
     for i in range(len(expected_p)):
         if expected_p[i] > 0 and actual_p[i] > 0:
-            psi += (actual_p[i] - expected_p[i]) * np.log(actual_p[i] / expected_p[i])
-    
+            psi += (actual_p[i] - expected_p[i]) * np.log(
+                actual_p[i] / expected_p[i]
+            )
+
     return float(psi)
 
-def compute_density_metrics(X: np.ndarray, k_range=range(2,6), min_samples=40, random_state=42):
+
+def compute_density_metrics(
+    X: np.ndarray, k_range=range(2, 6), min_samples=40, random_state=42
+):
     """Compute semantic density metrics for clustering analysis."""
     if X is None or len(X.shape) != 2:
         return None, None, None
@@ -78,7 +90,9 @@ def compute_density_metrics(X: np.ndarray, k_range=range(2,6), min_samples=40, r
     best_inter = None
 
     global_center = Xs.mean(axis=0)
-    global_mean_center_dist = np.mean(np.linalg.norm(Xs - global_center, axis=1))
+    global_mean_center_dist = np.mean(
+        np.linalg.norm(Xs - global_center, axis=1)
+    )
     global_ref = 2 * global_mean_center_dist
 
     for k in k_range:
@@ -95,7 +109,7 @@ def compute_density_metrics(X: np.ndarray, k_range=range(2,6), min_samples=40, r
         if k > 1:
             dists = []
             for i in range(k):
-                for j in range(i+1, k):
+                for j in range(i + 1, k):
                     dists.append(np.linalg.norm(centers[i] - centers[j]))
             inter = np.mean(dists) if dists else None
         else:
@@ -116,33 +130,34 @@ def compute_density_metrics(X: np.ndarray, k_range=range(2,6), min_samples=40, r
         return None, None, None
 
     intra_density = best_intra / (global_ref + 1e-9)
-    
+
     return float(intra_density), float(best_score), int(best_k)
+
 
 def compute_axes(df: pd.DataFrame) -> dict:
     """Compute all 4 axes metrics (A/B/C/D)."""
     # Handle timestamp and target columns
     time_col = df.columns[0]  # First column as timestamp
     target_col = df.columns[-1]  # Last column as target
-    
+
     # Convert timestamp if needed
-    if df[time_col].dtype == 'O':
+    if df[time_col].dtype == "O":
         try:
             df[time_col] = pd.to_datetime(df[time_col])
         except:
             pass
-    
+
     # Convert target to numeric if possible
-    if df[target_col].dtype == 'O':
+    if df[target_col].dtype == "O":
         try:
             df[target_col] = pd.Categorical(df[target_col]).codes
         except:
             numeric_cols = df.select_dtypes(include=[np.number]).columns
             if len(numeric_cols) > 0:
                 target_col = numeric_cols[-1]
-    
+
     s = df.sort_values(time_col)[target_col].astype(float)
-    
+
     # A-axis: Temporal Stability
     if len(s) < 30:
         st_var_ratio = np.nan
@@ -150,12 +165,12 @@ def compute_axes(df: pd.DataFrame) -> dict:
         psi_trigger_rate = np.nan
     else:
         global_var = float(s.var())
-        win = min(24, max(5, len(s)//10))
+        win = min(24, max(5, len(s) // 10))
         roll_var = float(s.rolling(window=win, min_periods=5).var().mean())
         st_var_ratio = roll_var / (global_var + 1e-9)
-        lag = min(24, max(2, len(s)//12))
+        lag = min(24, max(2, len(s) // 12))
         seasonal_corr = s.autocorr(lag=lag)
-        
+
         # A3: PSI calculation
         n = len(s)
         if n >= 120:
@@ -167,7 +182,7 @@ def compute_axes(df: pd.DataFrame) -> dict:
             )
         else:
             psi_trigger_rate = 0.0
-    
+
     # B-axis: Distributional Shape
     s_clean = s.astype(float).dropna()
     skew = s_clean.skew()
@@ -175,35 +190,42 @@ def compute_axes(df: pd.DataFrame) -> dict:
     sk_k_score = float(abs(skew) + abs(kurt - 3))
     q1, q3 = s_clean.quantile(0.25), s_clean.quantile(0.75)
     iqr = (q3 - q1) + 1e-9
-    outlier_ratio = float(((s_clean < q1 - 1.5*iqr) | (s_clean > q3 + 1.5*iqr)).mean())
+    outlier_ratio = float(
+        ((s_clean < q1 - 1.5 * iqr) | (s_clean > q3 + 1.5 * iqr)).mean()
+    )
     dip_stat = approximate_dip(s_clean.values)  # Hartigan dip test implemented
-    
+
     # C-axis: Semantic Density
     try:
-        num_df = df.select_dtypes(include=['int64', 'float64', 'float32'])
+        num_df = df.select_dtypes(include=["int64", "float64", "float32"])
         drop_cols = []
         for c in num_df.columns:
-            if c.lower().startswith('time') or c.lower().endswith('stamp'):
+            if c.lower().startswith("time") or c.lower().endswith("stamp"):
                 drop_cols.append(c)
         if target_col in num_df.columns:
             drop_cols.append(target_col)
-        
-        X = num_df.drop(columns=[c for c in drop_cols if c in num_df.columns]).values
+
+        X = num_df.drop(
+            columns=[c for c in drop_cols if c in num_df.columns]
+        ).values
         intra_density, sil_approx, k_used = compute_density_metrics(X)
     except Exception:
         intra_density, sil_approx, k_used = None, None, None
-    
+
     return {
         "st_var_ratio": st_var_ratio,
-        "seasonal_corr": float(seasonal_corr) if seasonal_corr is not None else np.nan,
+        "seasonal_corr": (
+            float(seasonal_corr) if seasonal_corr is not None else np.nan
+        ),
         "psi_trigger_rate": psi_trigger_rate,
         "sk_k_score": sk_k_score,
         "outlier_ratio": outlier_ratio,
         "dip_stat": dip_stat,
         "intra_cluster_density": intra_density,
         "silhouette_approx": sil_approx,
-        "density_k": k_used
+        "density_k": k_used,
     }
+
 
 def main():
     ap = argparse.ArgumentParser()
@@ -211,21 +233,22 @@ def main():
     ap.add_argument("--out_profile", default="data/dataset_profile.json")
     ap.add_argument("--out_axes", default="data/axes_metrics.json")
     args = ap.parse_args()
-    
+
     df = ingest_csv(args.input)
-    
+
     # Generate profile
     prof = {"generated_at": time.time(), **profile(df)}
     Path(args.out_profile).parent.mkdir(parents=True, exist_ok=True)
     with open(args.out_profile, "w", encoding="utf-8") as f:
         json.dump(prof, f, indent=2)
     print("PROFILE_SAVED", args.out_profile)
-    
+
     # Generate axes metrics
     axes = compute_axes(df)
     with open(args.out_axes, "w", encoding="utf-8") as f:
         json.dump(axes, f, indent=2)
     print("AXES_SAVED", args.out_axes)
+
 
 if __name__ == "__main__":
     main()

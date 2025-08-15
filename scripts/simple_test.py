@@ -1,1 +1,1 @@
-print('Script Ready')
+print("Script Ready")
