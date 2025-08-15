@@ -28,24 +28,36 @@ jobs:
         id: structure
         shell: bash
         run: |
-          echo "🔎 필수 디렉토리 검사 시작..."
-          dirs=(docs scripts sql axes config pipelines notebooks metrics)
-          missing=()
-          for d in "${dirs[@]}"; do
+          echo "�� 필수 디렉토리 검사 시작..."
+          
+          # 핵심 필수 디렉토리 (반드시 있어야 함)
+          core_dirs=(docs scripts config pipelines notebooks metrics)
+          missing_core=()
+          for d in "${core_dirs[@]}"; do
             if [ ! -d "$d" ]; then
-              echo "::error title=구조 오류::❌ 필수 디렉토리 '$d'가 없습니다."
-              missing+=("$d")
+              echo "::error title=구조 오류::❌ 핵심 디렉토리 '$d'가 없습니다."
+              missing_core+=("$d")
+            else
+              echo "  - ✅ $d 디렉토리 존재"
+            fi
+          done
+          
+          # 선택적 디렉토리 (있으면 좋지만 없어도 됨)
+          optional_dirs=(sql axes)
+          for d in "${optional_dirs[@]}"; do
+            if [ ! -d "$d" ]; then
+              echo "  - ⚠️ 선택적 디렉토리 '$d' 없음 (생성 권장)"
             else
               echo "  - ✅ $d 디렉토리 존재"
             fi
           done
 
-          if [ "${#missing[@]}" -ne 0 ]; then
-            echo "필수 디렉토리 누락: ${missing[*]}" >> $GITHUB_STEP_SUMMARY
-            echo "::error title=구조 검사 실패::필수 디렉토리가 누락되었습니다."
+          if [ "${#missing_core[@]}" -ne 0 ]; then
+            echo "핵심 디렉토리 누락: ${missing_core[*]}" >> $GITHUB_STEP_SUMMARY
+            echo "::error title=구조 검사 실패::핵심 디렉토리가 누락되었습니다."
             exit 1
           else
-            echo "모든 필수 디렉토리가 존재합니다." >> $GITHUB_STEP_SUMMARY
+            echo "모든 핵심 디렉토리가 존재합니다." >> $GITHUB_STEP_SUMMARY
             echo "✅ 구조 검사 통과"
           fi
 

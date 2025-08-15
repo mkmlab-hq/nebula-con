@@ -15,6 +15,12 @@ on:
     - cron: "0 18 * * 1-5" # 평일 오후 6시
   workflow_dispatch: # 수동 실행 가능
 
+# 권한 설정 추가
+permissions:
+  contents: write
+  pull-requests: write
+  actions: read
+
 jobs:
   auto-merge:
     name: "🔄 PR 자동 병합"
@@ -22,6 +28,12 @@ jobs:
     steps:
       - name: 📥 Checkout repository
         uses: actions/checkout@v4
+
+      - name: 🔐 GitHub CLI 인증
+        run: |
+          echo "🔐 GitHub CLI 인증 설정..."
+          echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
+          gh auth status
 
       - name: 🔍 CI 통과 PR 목록 조회
         id: pr-list
