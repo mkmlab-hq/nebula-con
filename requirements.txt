@@ -1,0 +1,31 @@
+# Core Data Science and ML
+pandas
+numpy
+scikit-learn
+pyarrow
+tqdm
+scipy
+
+# rPPG and Computer Vision
+opencv-python   
+scikit-image    
+# tensorflow      # (Alpine Linux + Python 3.12 환경에서는 설치 불가)
+
+# Voice Analysis
+librosa
+pydub
+
+# API and Web
+fastapi
+uvicorn
+python-multipart
+
+# Database
+sqlalchemy
+psycopg2-binary
+
+# CI/CD and Testing
+pytest
+pytest-cov
+flake8
+mypy
