@@ -1,6 +1,17 @@
+# BigQuery AI 해커톤 핵심 의존성
 pandas
 numpy
 scikit-learn
 pyarrow
 tqdm
 scipy
+
+# BigQuery 및 Google Cloud
+google-cloud-bigquery
+google-cloud-storage
+google-auth
+
+# ML 및 임베딩
+sentence-transformers
+transformers
+torch

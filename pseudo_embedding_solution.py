@@ -5,9 +5,12 @@ API 키 없이도 Kaggle 대회 준비 완료
 """
 
 from google.cloud import bigquery
+from google.api_core.exceptions import NotFound
 import hashlib
 import random
 import numpy as np
+import time
+import pandas as pd
 from typing import List, Dict, Any
 
 class PseudoEmbeddingSolution:
@@ -106,7 +109,7 @@ class PseudoEmbeddingSolution:
             print("🔍 임베딩 데이터를 BigQuery 테이블에 저장...")
             
             # 테이블 스키마 정의
-            schema = [
+            self.schema = [
                 bigquery.SchemaField("id", "INTEGER"),
                 bigquery.SchemaField("title", "STRING"),
                 bigquery.SchemaField("text", "STRING"),
@@ -115,16 +118,42 @@ class PseudoEmbeddingSolution:
             ]
             
             # 테이블 참조
-            table_id = f"{self.project_id}.{self.dataset_id}.hacker_news_embeddings_pseudo"
-            table = bigquery.Table(table_id, schema=schema)
+            self.table_id = f"{self.project_id}.{self.dataset_id}.hacker_news_embeddings_pseudo"
             
-            # 테이블 생성 또는 교체
+            # --- 이 블록으로 기존 테이블 생성 로직을 교체하십시오 ---
+            # 1. 기존 테이블이 있다면 삭제 시도
             try:
-                self.client.delete_table(table_id, not_found_ok=True)
-                table = self.client.create_table(table)
-                print(f"✅ 테이블 {table_id} 생성 완료")
+                self.client.delete_table(self.table_id, not_found_ok=True)
+                print(f"Attempting to delete old table (if it exists): {self.table_id}")
+                time.sleep(2) # 삭제 후 전파 시간 확보
             except Exception as e:
-                print(f"⚠️ 테이블 생성/교체 중 오류: {str(e)[:50]}...")
+                print(f"Warning during table deletion: {e}")
+
+            # 2. 새로운 테이블 생성
+            print(f"Creating new table: {self.table_id}")
+            table_object = bigquery.Table(self.table_id, schema=self.schema)
+            self.client.create_table(table_object)
+            print("✅ Table creation command sent.")
+
+            # 3. 테이블이 실제로 생성될 때까지 확인하며 대기 (핵심)
+            retries = 5
+            for i in range(retries):
+                try:
+                    self.client.get_table(self.table_id)
+                    print("✅ Table is confirmed to exist.")
+                    break  # 성공, 루프 탈출
+                except NotFound:
+                    if i < retries - 1:
+                        wait_time = (i + 1) * 2
+                        print(f"Table not yet found. Retrying in {wait_time} seconds...")
+                        time.sleep(wait_time)
+                    else:
+                        print("❌ Table could not be confirmed after retries. Aborting.")
+                        raise # 최종 실패 처리
+            # --- 여기까지 교체 ---
+            
+            # 테이블 객체 생성 (데이터 삽입용)
+            table = bigquery.Table(self.table_id, schema=self.schema)
             
             # 데이터 준비
             rows_to_insert = []
@@ -137,15 +166,36 @@ class PseudoEmbeddingSolution:
                     "embedding": embedding
                 })
             
-            # 데이터 삽입
-            errors = self.client.insert_rows_json(table, rows_to_insert)
-            
-            if not errors:
-                print(f"✅ {len(rows_to_insert)}개 행 삽입 성공!")
-                return True
+            # --- 이 블록으로 기존 데이터 삽입 로직을 교체하십시오 ---
+
+            # 1. 보내려는 데이터와 테이블 스키마를 직접 출력하여 비교합니다.
+            print("\n--- Verifying Data and Schema before insertion ---")
+            print("Table Schema:", self.schema)
+            if rows_to_insert:
+                print("First row of data to insert:", rows_to_insert[0])
             else:
-                print(f"❌ 데이터 삽입 오류: {errors}")
-                return False
+                print("Warning: No rows to insert.")
+            print("--------------------------------------------------\n")
+
+            # --- 이 블록으로 기존 데이터 삽입 로직을 교체하십시오 ---
+            print("\nAttempting data insertion using the 'Load Job' method...")
+
+            # 1. 데이터를 DataFrame으로 변환
+            # (rows_to_insert 변수가 딕셔너리 리스트라고 가정)
+            df = pd.DataFrame(rows_to_insert)
+
+            # 2. DataFrame을 BigQuery 테이블로 로드
+            job = self.client.load_table_from_dataframe(
+                df, self.table_id, job_config=bigquery.LoadJobConfig(write_disposition="WRITE_APPEND")
+            )
+
+            # 3. 작업 완료 대기
+            job.result() # Waits for the job to complete.
+
+            print(f"✅ SUCCESS: Loaded {job.output_rows} rows into {self.table_id}.")
+            
+            # Load Job이 성공적으로 완료되었으므로 True 반환
+            return True
                 
         except Exception as e:
             print(f"❌ 임베딩 테이블 생성 실패: {str(e)}")
@@ -173,9 +223,18 @@ class PseudoEmbeddingSolution:
             if rows:
                 print("✅ 임베딩 테이블 테스트 성공!")
                 for row in rows:
-                    print(f"  - ID: {row['id']}, 제목: {row['title'][:50]}...")
-                    print(f"    임베딩 차원: {row['embedding_dim']}")
-                    print(f"    첫 번째 값: {row['first_value']:.4f}, 두 번째 값: {row['second_value']:.4f}")
+                    # 안전한 title 처리 (None 체크)
+                    title = row.get('title', '')
+                    title_display = title[:50] + "..." if title and len(title) > 50 else (title or "제목 없음")
+                    
+                    # 안전한 임베딩 값 처리
+                    embedding_dim = row.get('embedding_dim', 0)
+                    first_value = row.get('first_value', 0.0)
+                    second_value = row.get('second_value', 0.0)
+                    
+                    print(f"  - ID: {row.get('id', 'N/A')}, 제목: {title_display}")
+                    print(f"    임베딩 차원: {embedding_dim}")
+                    print(f"    첫 번째 값: {first_value:.4f}, 두 번째 값: {second_value:.4f}")
                 return True
             else:
                 print("⚠️ 테이블에 데이터가 없습니다")

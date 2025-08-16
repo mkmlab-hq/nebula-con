@@ -1,0 +1,252 @@
+name: PR Automation & Quality Gate
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+    branches: [ main, master, develop ]
+  pull_request_review:
+    types: [submitted, dismissed, edited]
+
+jobs:
+  # 1. 코드 품질 검사
+  code-quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install flake8 black isort mypy
+      
+      - name: Code formatting check (Black)
+        run: |
+          black --check --diff .
+      
+      - name: Import sorting check (isort)
+        run: |
+          isort --check-only --diff .
+      
+      - name: Linting (Flake8)
+        run: |
+          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+          flake8 . --count --exit-zero --max-complexity=10 --max-line-length=88 --statistics
+      
+      - name: Type checking (MyPy)
+        run: |
+          mypy --ignore-missing-imports --no-strict-optional .
+      
+      - name: Security scan
+        run: |
+          pip install bandit
+          bandit -r . -f json -o bandit-report.json || true
+      
+      - name: Upload security report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: security-scan
+          path: bandit-report.json
+
+  # 2. 자동 테스트 실행
+  auto-test:
+    runs-on: ubuntu-latest
+    needs: code-quality
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      
+      - name: Run unit tests
+        run: |
+          python -m pytest tests/ -v --cov=. --cov-report=xml
+      
+      - name: Upload coverage report
+        uses: codecov/codecov-action@v3
+        with:
+          file: ./coverage.xml
+          flags: unittests
+          name: codecov-umbrella
+      
+      - name: Run integration tests
+        run: |
+          python baseline_model_training.py --test-only
+        continue-on-error: true
+
+  # 3. 자동 리뷰어 할당
+  auto-assign:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.user.type != 'Bot'
+    steps:
+      - name: Auto-assign reviewers
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: pullRequest } = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number,
+            });
+            
+            // PR 크기에 따른 리뷰어 수 조정
+            const changedFiles = pullRequest.changed_files;
+            let requiredReviewers = 1;
+            
+            if (changedFiles > 10) requiredReviewers = 2;
+            if (changedFiles > 50) requiredReviewers = 3;
+            
+            // 팀 멤버 중에서 리뷰어 할당
+            const teamMembers = ['mkmlab-v2']; // 실제 팀 멤버로 수정 필요
+            
+            const reviewers = teamMembers.slice(0, requiredReviewers);
+            
+            await github.rest.pulls.requestReviewers({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number,
+              reviewers: reviewers,
+            });
+            
+            console.log(`Assigned ${reviewers.length} reviewers: ${reviewers.join(', ')}`);
+
+  # 4. 자동 라벨링
+  auto-label:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Auto-label PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: pullRequest } = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number,
+            });
+            
+            const labels = [];
+            
+            // 파일 변경 유형에 따른 라벨링
+            const changedFiles = pullRequest.files;
+            
+            if (changedFiles.some(file => file.filename.includes('test'))) {
+              labels.push('testing');
+            }
+            
+            if (changedFiles.some(file => file.filename.includes('docs'))) {
+              labels.push('documentation');
+            }
+            
+            if (changedFiles.some(file => file.filename.includes('requirements'))) {
+              labels.push('dependencies');
+            }
+            
+            if (changedFiles.some(file => file.filename.includes('workflow'))) {
+              labels.push('ci-cd');
+            }
+            
+            // PR 크기에 따른 라벨링
+            if (pullRequest.additions + pullRequest.deletions > 100) {
+              labels.push('large-change');
+            }
+            
+            if (labels.length > 0) {
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                labels: labels,
+              });
+              
+              console.log(`Added labels: ${labels.join(', ')}`);
+            }
+
+  # 5. 자동 머지 준비 검사
+  merge-readiness:
+    runs-on: ubuntu-latest
+    needs: [code-quality, auto-test]
+    if: github.event.pull_request.state == 'open'
+    steps:
+      - name: Check merge readiness
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: pullRequest } = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number,
+            });
+            
+            const { data: reviews } = await github.rest.pulls.listReviews({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number,
+            });
+            
+            const { data: checks } = await github.rest.checks.listForRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: pullRequest.head.sha,
+            });
+            
+            let status = '✅ Ready to merge';
+            let comment = '## 🚀 PR 머지 준비 완료!\n\n';
+            
+            // 체크 상태 확인
+            const failedChecks = checks.check_runs.filter(check => check.conclusion === 'failure');
+            if (failedChecks.length > 0) {
+              status = '❌ Checks failed';
+              comment += `### ❌ 실패한 체크:\n`;
+              failedChecks.forEach(check => {
+                comment += `- ${check.name}: ${check.conclusion}\n`;
+              });
+            }
+            
+            // 리뷰 상태 확인
+            const approvedReviews = reviews.filter(review => review.state === 'APPROVED');
+            if (approvedReviews.length === 0) {
+              status = '⏳ Waiting for review';
+              comment += `\n### ⏳ 리뷰 대기 중\n`;
+            } else {
+              comment += `\n### ✅ 승인된 리뷰: ${approvedReviews.length}개\n`;
+            }
+            
+            // PR 상태 업데이트
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: comment,
+            });
+            
+            console.log(`PR Status: ${status}`);
+
+  # 6. 자동 배포 준비 (선택적)
+  deploy-prep:
+    runs-on: ubuntu-latest
+    needs: [code-quality, auto-test]
+    if: github.event.pull_request.merged == true
+    steps:
+      - name: Prepare deployment
+        run: |
+          echo "🚀 PR이 머지되었습니다. 배포 준비를 시작합니다."
+          echo "배포 환경: ${{ github.ref_name }}"
+          
+      - name: Create deployment tag
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git tag -a "v$(date +%Y%m%d-%H%M%S)" -m "Auto-deploy from PR #${{ github.event.pull_request.number }}"
+          git push origin "v$(date +%Y%m%d-%H%M%S)" 
