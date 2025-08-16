@@ -1,0 +1,93 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environment
+.venv/
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Data and Generated Files
+data/raw/*
+!data/raw/.gitkeep
+data/raw/*.csv
+data/raw/*.json
+data/raw/*.parquet
+data/raw/*.h5
+data/raw/*.pkl
+metrics/*.json
+metrics/*.csv
+metrics/*.parquet
+*.log
+*.tmp
+*.cache
+*.bak
+
+# OS and Editor Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# GCP and Authentication
+gcs-key.json
+*.json.key
+service-account-*.json
+.env
+.env.local
+.env.production
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb
+
+# Testing
+.coverage
+.pytest_cache/
+.tox/
+.nox/
+htmlcov/
+.coverage.*
+coverage.xml
+*.cover
+.hypothesis/
+
+# Documentation
+docs/_build/
+docs/build/
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+*.out

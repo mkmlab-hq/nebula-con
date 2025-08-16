@@ -1,0 +1,31 @@
+# Development dependencies with exact versions for consistency
+# Formatting and linting tools
+black==23.12.1
+isort==5.13.2
+ruff==0.1.6
+
+# Security and quality tools
+bandit==1.7.5
+safety==2.3.5
+
+# Testing tools
+pytest==7.4.3
+pytest-cov==4.1.0
+pytest-mock==3.12.0
+
+# Pre-commit hooks
+pre-commit==3.6.0
+
+# Type checking
+mypy==1.8.0
+types-requests>=2.31.0
+types-PyYAML>=6.0.0
+
+# Documentation
+sphinx>=7.0.0
+sphinx-rtd-theme>=2.0.0
+
+# Development utilities
+ipython>=8.0.0
+jupyter>=1.0.0
+notebook>=7.0.0 

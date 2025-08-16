@@ -1,0 +1,148 @@
+{
+  "total_queries": 3,
+  "successful_queries": 3,
+  "success_rate": "3/3",
+  "pipeline_type": "bigquery_ml_simple",
+  "embedding_model": "persona-diary-service.nebula_con_kaggle.embedding_model_test",
+  "location": "us-central1",
+  "results": [
+    {
+      "query": "How to optimize machine learning models?",
+      "search_results": [
+        {
+          "id": 892,
+          "title": null,
+          "text": "The slides from this talk are now up on slideshare: http://www.slideshare.net/cape/index-fowa/",
+          "combined_text": "The slides from this talk are now up on slideshare: http://www.slideshare.net/cape/index-fowa/",
+          "similarity_score": 0.35630144580019685
+        },
+        {
+          "id": 895,
+          "title": null,
+          "text": "I bet YCombinator must feel a bit strange having this as the highest voted story ;)",
+          "combined_text": "I bet YCombinator must feel a bit strange having this as the highest voted story ;)",
+          "similarity_score": 0.28785035189884245
+        },
+        {
+          "id": 90098,
+          "title": null,
+          "text": "Is there a way to subtract points from a post?  Or at least to undo an addition by mistake?",
+          "combined_text": "Is there a way to subtract points from a post?  Or at least to undo an addition by mistake?",
+          "similarity_score": 0.2863035406047558
+        },
+        {
+          "id": 889407,
+          "title": null,
+          "text": "j.mp is a url shortener that should be removed - or whatever your policy is for url shorteners. You could just follow the link in the post submission process.",
+          "combined_text": "j.mp is a url shortener that should be removed - or whatever your policy is for url shorteners. You could just follow the link in the post submission process.",
+          "similarity_score": 0.2825058614260746
+        },
+        {
+          "id": 892432,
+          "title": null,
+          "text": "password recovery? Pretty please? With sugar on top?",
+          "combined_text": "password recovery? Pretty please? With sugar on top?",
+          "similarity_score": 0.2575620733215155
+        }
+      ],
+      "answer": "🔍 **질문**: How to optimize machine learning models?\n\n📚 **찾은 정보**:\n- **제목**: None\n- **내용**: The slides from this talk are now up on slideshare: http://www.slideshare.net/cape/index-fowa/...\n- **유사도 점수**: 0.356\n\n💡 **BigQuery ML 활용**: 이 답변은 BigQuery ML의 `persona-diary-service.nebula_con_kaggle.embedding_model_test` 모델을 사용하여 생성되었습니다.\n📍 **위치**: us-central1 (올바른 위치 사용)\n🧠 **AI 기술**: Vertex AI 기반 임베딩 모델로 의미적 유사도 계산",
+      "status": "success",
+      "search_method": "bigquery_ml_embedding_similarity",
+      "location": "us-central1",
+      "embedding_model": "persona-diary-service.nebula_con_kaggle.embedding_model_test",
+      "pipeline_type": "bigquery_ml_simple"
+    },
+    {
+      "query": "Best practices for data science projects?",
+      "search_results": [
+        {
+          "id": 895,
+          "title": null,
+          "text": "I bet YCombinator must feel a bit strange having this as the highest voted story ;)",
+          "combined_text": "I bet YCombinator must feel a bit strange having this as the highest voted story ;)",
+          "similarity_score": 0.3114657320877375
+        },
+        {
+          "id": 892,
+          "title": null,
+          "text": "The slides from this talk are now up on slideshare: http://www.slideshare.net/cape/index-fowa/",
+          "combined_text": "The slides from this talk are now up on slideshare: http://www.slideshare.net/cape/index-fowa/",
+          "similarity_score": 0.31025637338880135
+        },
+        {
+          "id": 889407,
+          "title": null,
+          "text": "j.mp is a url shortener that should be removed - or whatever your policy is for url shorteners. You could just follow the link in the post submission process.",
+          "combined_text": "j.mp is a url shortener that should be removed - or whatever your policy is for url shorteners. You could just follow the link in the post submission process.",
+          "similarity_score": 0.24535783626451418
+        },
+        {
+          "id": 892432,
+          "title": null,
+          "text": "password recovery? Pretty please? With sugar on top?",
+          "combined_text": "password recovery? Pretty please? With sugar on top?",
+          "similarity_score": 0.2198747951990447
+        },
+        {
+          "id": 90098,
+          "title": null,
+          "text": "Is there a way to subtract points from a post?  Or at least to undo an addition by mistake?",
+          "combined_text": "Is there a way to subtract points from a post?  Or at least to undo an addition by mistake?",
+          "similarity_score": 0.17576617090258895
+        }
+      ],
+      "answer": "🔍 **질문**: Best practices for data science projects?\n\n📚 **찾은 정보**:\n- **제목**: None\n- **내용**: I bet YCombinator must feel a bit strange having this as the highest voted story ;)...\n- **유사도 점수**: 0.311\n\n💡 **BigQuery ML 활용**: 이 답변은 BigQuery ML의 `persona-diary-service.nebula_con_kaggle.embedding_model_test` 모델을 사용하여 생성되었습니다.\n📍 **위치**: us-central1 (올바른 위치 사용)\n🧠 **AI 기술**: Vertex AI 기반 임베딩 모델로 의미적 유사도 계산",
+      "status": "success",
+      "search_method": "bigquery_ml_embedding_similarity",
+      "location": "us-central1",
+      "embedding_model": "persona-diary-service.nebula_con_kaggle.embedding_model_test",
+      "pipeline_type": "bigquery_ml_simple"
+    },
+    {
+      "query": "Startup advice for new founders",
+      "search_results": [
+        {
+          "id": 895,
+          "title": null,
+          "text": "I bet YCombinator must feel a bit strange having this as the highest voted story ;)",
+          "combined_text": "I bet YCombinator must feel a bit strange having this as the highest voted story ;)",
+          "similarity_score": 0.40720467272187405
+        },
+        {
+          "id": 892,
+          "title": null,
+          "text": "The slides from this talk are now up on slideshare: http://www.slideshare.net/cape/index-fowa/",
+          "combined_text": "The slides from this talk are now up on slideshare: http://www.slideshare.net/cape/index-fowa/",
+          "similarity_score": 0.3281896258256764
+        },
+        {
+          "id": 892432,
+          "title": null,
+          "text": "password recovery? Pretty please? With sugar on top?",
+          "combined_text": "password recovery? Pretty please? With sugar on top?",
+          "similarity_score": 0.22786409245395317
+        },
+        {
+          "id": 90098,
+          "title": null,
+          "text": "Is there a way to subtract points from a post?  Or at least to undo an addition by mistake?",
+          "combined_text": "Is there a way to subtract points from a post?  Or at least to undo an addition by mistake?",
+          "similarity_score": 0.22763341559732067
+        },
+        {
+          "id": 889407,
+          "title": null,
+          "text": "j.mp is a url shortener that should be removed - or whatever your policy is for url shorteners. You could just follow the link in the post submission process.",
+          "combined_text": "j.mp is a url shortener that should be removed - or whatever your policy is for url shorteners. You could just follow the link in the post submission process.",
+          "similarity_score": 0.22190194041743633
+        }
+      ],
+      "answer": "🔍 **질문**: Startup advice for new founders\n\n📚 **찾은 정보**:\n- **제목**: None\n- **내용**: I bet YCombinator must feel a bit strange having this as the highest voted story ;)...\n- **유사도 점수**: 0.407\n\n💡 **BigQuery ML 활용**: 이 답변은 BigQuery ML의 `persona-diary-service.nebula_con_kaggle.embedding_model_test` 모델을 사용하여 생성되었습니다.\n📍 **위치**: us-central1 (올바른 위치 사용)\n🧠 **AI 기술**: Vertex AI 기반 임베딩 모델로 의미적 유사도 계산",
+      "status": "success",
+      "search_method": "bigquery_ml_embedding_similarity",
+      "location": "us-central1",
+      "embedding_model": "persona-diary-service.nebula_con_kaggle.embedding_model_test",
+      "pipeline_type": "bigquery_ml_simple"
+    }
+  ]
+}

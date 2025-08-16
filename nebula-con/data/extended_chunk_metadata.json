@@ -1,0 +1,112 @@
+[
+  {
+    "doc_id": 1,
+    "chunk_id": "1_0",
+    "title": "How to implement machine learning pipeline?",
+    "tags": "machine-learning,python,scikit-learn,pipeline",
+    "score": 15,
+    "category": "machine-learning",
+    "chunk_index": 0,
+    "total_chunks": 1,
+    "chunk_length": 82
+  },
+  {
+    "doc_id": 2,
+    "chunk_id": "2_0",
+    "title": "BigQuery performance optimization tips",
+    "tags": "bigquery,google-cloud,performance,optimization",
+    "score": 23,
+    "category": "bigquery",
+    "chunk_index": 0,
+    "total_chunks": 1,
+    "chunk_length": 72
+  },
+  {
+    "doc_id": 3,
+    "chunk_id": "3_0",
+    "title": "Natural language processing with transformers",
+    "tags": "nlp,transformers,pytorch,bert,gpt",
+    "score": 31,
+    "category": "nlp",
+    "chunk_index": 0,
+    "total_chunks": 1,
+    "chunk_length": 64
+  },
+  {
+    "doc_id": 4,
+    "chunk_id": "4_0",
+    "title": "Data preprocessing best practices",
+    "tags": "data-preprocessing,machine-learning,python,feature-engineering",
+    "score": 18,
+    "category": "data-science",
+    "chunk_index": 0,
+    "total_chunks": 1,
+    "chunk_length": 64
+  },
+  {
+    "doc_id": 5,
+    "chunk_id": "5_0",
+    "title": "Model evaluation and validation strategies",
+    "tags": "model-evaluation,validation,machine-learning,cross-validation",
+    "score": 25,
+    "category": "machine-learning",
+    "chunk_index": 0,
+    "total_chunks": 1,
+    "chunk_length": 61
+  },
+  {
+    "doc_id": 6,
+    "chunk_id": "6_0",
+    "title": "Deep learning architecture design patterns",
+    "tags": "deep-learning,cnn,architecture,computer-vision",
+    "score": 28,
+    "category": "deep-learning",
+    "chunk_index": 0,
+    "total_chunks": 1,
+    "chunk_length": 62
+  },
+  {
+    "doc_id": 7,
+    "chunk_id": "7_0",
+    "title": "Time series forecasting with LSTM networks",
+    "tags": "time-series,lstm,forecasting,financial",
+    "score": 22,
+    "category": "time-series",
+    "chunk_index": 0,
+    "total_chunks": 1,
+    "chunk_length": 58
+  },
+  {
+    "doc_id": 8,
+    "chunk_id": "8_0",
+    "title": "Reinforcement learning for game AI",
+    "tags": "reinforcement-learning,q-learning,dqn,game-ai",
+    "score": 19,
+    "category": "reinforcement-learning",
+    "chunk_index": 0,
+    "total_chunks": 1,
+    "chunk_length": 58
+  },
+  {
+    "doc_id": 9,
+    "chunk_id": "9_0",
+    "title": "Graph neural networks for social network analysis",
+    "tags": "graph-neural-networks,social-networks,node-classification,link-prediction",
+    "score": 24,
+    "category": "graph-ai",
+    "chunk_index": 0,
+    "total_chunks": 1,
+    "chunk_length": 60
+  },
+  {
+    "doc_id": 10,
+    "chunk_id": "10_0",
+    "title": "AutoML and hyperparameter optimization",
+    "tags": "automl,hyperparameter-optimization,optuna,hyperopt",
+    "score": 26,
+    "category": "automl",
+    "chunk_index": 0,
+    "total_chunks": 1,
+    "chunk_length": 51
+  }
+]

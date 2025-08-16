@@ -1,0 +1,42 @@
+{
+  "total_queries": 5,
+  "successful_queries": 0,
+  "success_rate": "0/5",
+  "pipeline_type": "vertex_ai_sdk_direct",
+  "models_used": [
+    "textembedding-gecko@003",
+    "text-bison@001"
+  ],
+  "results": [
+    {
+      "query": "How to optimize machine learning models?",
+      "search_results": [],
+      "answer": "'How to optimize machine learning models?'에 대한 관련 정보를 찾을 수 없습니다.",
+      "status": "no_results"
+    },
+    {
+      "query": "Best practices for data science projects?",
+      "search_results": [],
+      "answer": "'Best practices for data science projects?'에 대한 관련 정보를 찾을 수 없습니다.",
+      "status": "no_results"
+    },
+    {
+      "query": "Startup advice for new founders",
+      "search_results": [],
+      "answer": "'Startup advice for new founders'에 대한 관련 정보를 찾을 수 없습니다.",
+      "status": "no_results"
+    },
+    {
+      "query": "PhD vs startup career path",
+      "search_results": [],
+      "answer": "'PhD vs startup career path'에 대한 관련 정보를 찾을 수 없습니다.",
+      "status": "no_results"
+    },
+    {
+      "query": "Machine learning in production",
+      "search_results": [],
+      "answer": "'Machine learning in production'에 대한 관련 정보를 찾을 수 없습니다.",
+      "status": "no_results"
+    }
+  ]
+}

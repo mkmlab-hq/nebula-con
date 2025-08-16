@@ -1,0 +1,72 @@
+[
+  {
+    "query": "What are the latest trends in AI?",
+    "answer": "**AI 최신 트렌드 분석 결과**\n                \n                질문: What are the latest trends in AI?\n                \n                **참고 자료:**\n                1. Sample\n   요약: Sample text for testing.\n                \n                **핵심 인사이트:**\n                - 제공된 HackerNews 데이터를 바탕으로 AI 분야의 최신 동향을 분석했습니다\n                - 각 게시글의 제목과 내용을 종합하여 관련성 높은 정보를 선별했습니다\n                - 관련성 점수: 1.00 (최고 점수)\n                \n                **추천 자료:**\n                가장 관련성 높은 게시글: \"Sample\"",
+    "sources": [
+      {
+        "id": 1,
+        "title": "Sample",
+        "text_preview": "Sample text for testing...",
+        "relevance_score": 1.0
+      }
+    ],
+    "method": "keyword_based_search",
+    "ai_model_used": false
+  },
+  {
+    "query": "How to optimize machine learning models?",
+    "answer": "**최적화 및 베스트 프랙티스 가이드**\n                \n                질문: How to optimize machine learning models?\n                \n                **참고 자료:**\n                1. Sample\n   요약: Sample text for testing.\n                \n                **핵심 가이드라인:**\n                - 제공된 HackerNews 데이터에서 관련성 높은 실용적 조언을 추출했습니다\n                - 각 게시글의 제목과 내용을 종합하여 실무에 적용 가능한 정보를 선별했습니다\n                - 관련성 점수: 1.00 (최고 점수)\n                \n                **추천 자료:**\n                가장 관련성 높은 게시글: \"Sample\"",
+    "sources": [
+      {
+        "id": 1,
+        "title": "Sample",
+        "text_preview": "Sample text for testing...",
+        "relevance_score": 1.0
+      }
+    ],
+    "method": "keyword_based_search",
+    "ai_model_used": false
+  },
+  {
+    "query": "Best practices for data science projects?",
+    "answer": "**최적화 및 베스트 프랙티스 가이드**\n                \n                질문: Best practices for data science projects?\n                \n                **참고 자료:**\n                1. Sample\n   요약: Sample text for testing.\n                \n                **핵심 가이드라인:**\n                - 제공된 HackerNews 데이터에서 관련성 높은 실용적 조언을 추출했습니다\n                - 각 게시글의 제목과 내용을 종합하여 실무에 적용 가능한 정보를 선별했습니다\n                - 관련성 점수: 1.00 (최고 점수)\n                \n                **추천 자료:**\n                가장 관련성 높은 게시글: \"Sample\"",
+    "sources": [
+      {
+        "id": 1,
+        "title": "Sample",
+        "text_preview": "Sample text for testing...",
+        "relevance_score": 1.0
+      }
+    ],
+    "method": "keyword_based_search",
+    "ai_model_used": false
+  },
+  {
+    "query": "Startup advice for new founders",
+    "answer": "**질문 답변 결과**\n                \n                질문: Startup advice for new founders\n                \n                **참고 자료:**\n                1. Sample\n   요약: Sample text for testing.\n                \n                **분석 결과:**\n                - 제공된 HackerNews 데이터를 바탕으로 질문에 대한 답변을 준비했습니다\n                - 각 게시글의 제목과 내용을 종합하여 관련성 높은 정보를 선별했습니다\n                - 관련성 점수: 1.00 (최고 점수)\n                \n                **추천 자료:**\n                가장 관련성 높은 게시글: \"Sample\"",
+    "sources": [
+      {
+        "id": 1,
+        "title": "Sample",
+        "text_preview": "Sample text for testing...",
+        "relevance_score": 1.0
+      }
+    ],
+    "method": "keyword_based_search",
+    "ai_model_used": false
+  },
+  {
+    "query": "PhD vs startup career path",
+    "answer": "**질문 답변 결과**\n                \n                질문: PhD vs startup career path\n                \n                **참고 자료:**\n                1. Sample\n   요약: Sample text for testing.\n                \n                **분석 결과:**\n                - 제공된 HackerNews 데이터를 바탕으로 질문에 대한 답변을 준비했습니다\n                - 각 게시글의 제목과 내용을 종합하여 관련성 높은 정보를 선별했습니다\n                - 관련성 점수: 1.00 (최고 점수)\n                \n                **추천 자료:**\n                가장 관련성 높은 게시글: \"Sample\"",
+    "sources": [
+      {
+        "id": 1,
+        "title": "Sample",
+        "text_preview": "Sample text for testing...",
+        "relevance_score": 1.0
+      }
+    ],
+    "method": "keyword_based_search",
+    "ai_model_used": false
+  }
+]

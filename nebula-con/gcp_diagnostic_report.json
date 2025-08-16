@@ -1,0 +1,14 @@
+{
+  "timestamp": "2025-08-16 20:54:51.384841",
+  "gcp_environment": {
+    "project_id": "persona-diary-service",
+    "location": "미설정",
+    "service_account": "F:\\workspace\\nebula-con\\gcs-key.json",
+    "datasets": [
+      "intelligence",
+      "nebula_con_kaggle"
+    ]
+  },
+  "bigquery_ml_test": true,
+  "vertex_ai_access": true
+}

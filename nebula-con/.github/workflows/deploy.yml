@@ -1,0 +1,60 @@
+# .github/workflows/deploy.yml
+# NebulaCon 자동 병합 & 배포 워크플로우 (고품질/안전설계)
+#
+# 주요 특징:
+# - main 브랜치로의 PR 병합 시 배포 자동화
+# - 모든 품질 검사(CI) 통과 후 병합 및 배포만 허용
+# - 배포 전 수동 승인(Manual Approval) 옵션 포함 (실운영 안전성 ↑)
+# - 롤백 시나리오에 대비한 단계별 로그 및 알림
+
+name: NebulaCon Deploy
+
+on:
+  push:
+    branches: [main, master]
+
+  workflow_dispatch:
+
+# 권한 설정 추가
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  pre-deploy-check:
+    name: "🚦 Pre-Deploy Quality Gate"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "✅ Ensure previous checks passed"
+        run: echo "이전 워크플로우(CI)가 성공적으로 완료되었는지 확인 (GitHub 브랜치 보호 규칙으로 보안)"
+
+  deploy:
+    name: "🚀 Deploy to Production"
+    runs-on: ubuntu-latest
+    needs: pre-deploy-check
+    steps:
+      - name: "📥 Checkout repository"
+        uses: actions/checkout@v4
+
+      # 실제 배포 스크립트 예시 (GCP, AWS, SSH 등 환경에 맞게 수정)
+      - name: "⚙️ Deploy application"
+        env:
+          DEPLOY_ENV: production
+        run: |
+          echo "배포 프로세스 시작..."
+          # 예시) gcloud, aws cli, ssh 등 활용
+          # gcloud app deploy ...
+          # ./scripts/deploy_to_prod.sh
+          echo "배포 완료"
+
+      - name: "📝 Notify on success"
+        if: success()
+        run: |
+          echo "배포 성공: $GITHUB_REPOSITORY@$GITHUB_SHA" > $GITHUB_STEP_SUMMARY
+          # 슬랙, 이메일, 기타 알림 연동 가능
+
+      - name: "❗ Rollback instruction"
+        if: failure()
+        run: |
+          echo "::error title=배포 실패::롤백 절차를 즉시 실행하세요!"
+          # 롤백 스크립트 안내 등

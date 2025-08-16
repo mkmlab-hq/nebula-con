@@ -1,0 +1,197 @@
+[
+  {
+    "query": "What are the latest trends in AI?",
+    "answer": "**AI 기반 문서 검색 및 분석 결과**\n            \n            질문: What are the latest trends in AI?\n            \n            **참고 자료 (임베딩 유사도 기반):**\n            1. None\n   요약: I think this advice is somewhat misguided.\n2. None\n   요약: The success rate Paul has had is actually lower than average success rate of small business startups (with more than one employee) Everyone always quotes a 10% success rate after 1 or 2 years.\n3. None\n   요약: I've listened to most of these a few months back and they're great.\n4. None\n   요약: danw - just wanted to let you know that video has been passed up the ladder :-)<p>I think Tiny Pictures is really happy with the UI of the mobile application for Radar.\n5. None\n   요약: I don't know how much detail I can go into without messing up potential patent applications, but their infrastructure took them about 6 months of very hard work to build, and they are first-rate hackers.\n            \n            **검색 품질:**\n            - 최고 유사도 점수: 0.4000\n            - 검색된 문서 수: 5개\n            - 임베딩 기반 벡터 유사도 검색 사용\n            \n            **핵심 인사이트:**\n            - 제공된 HackerNews 데이터를 바탕으로 질문에 대한 관련 문서를 검색했습니다\n            - ML.GENERATE_EMBEDDING을 사용하여 고품질 임베딩 벡터를 생성했습니다\n            - 코사인 유사도를 기반으로 가장 관련성 높은 문서를 선별했습니다\n            \n            **추천 자료:**\n            가장 관련성 높은 문서: \"None\"",
+    "sources": [
+      {
+        "id": 888,
+        "title": null,
+        "text_preview": "I think this advice is somewhat misguided.  I'm currently on my seventh start up. I started two prev...",
+        "similarity_score": 0.4
+      },
+      {
+        "id": 8954,
+        "title": null,
+        "text_preview": "The success rate Paul has had is actually lower than average success rate of small business startups...",
+        "similarity_score": 0.4
+      },
+      {
+        "id": 900,
+        "title": null,
+        "text_preview": "I've listened to most of these a few months back and they're great. The tom Coates one contains bril...",
+        "similarity_score": 0.2
+      },
+      {
+        "id": 9004,
+        "title": null,
+        "text_preview": "danw - just wanted to let you know that video has been passed up the ladder :-)<p>I think Tiny Pictu...",
+        "similarity_score": 0.2
+      },
+      {
+        "id": 8910,
+        "title": null,
+        "text_preview": "I don't know how much detail I can go into without messing up potential patent applications, but the...",
+        "similarity_score": 0.2
+      }
+    ],
+    "method": "ml_embedding_based_search",
+    "ai_model_used": true,
+    "embedding_dimensions": 768
+  },
+  {
+    "query": "How to optimize machine learning models?",
+    "answer": "**AI 기반 문서 검색 및 분석 결과**\n            \n            질문: How to optimize machine learning models?\n            \n            **참고 자료 (임베딩 유사도 기반):**\n            1. None\n   요약: I think this advice is somewhat misguided.\n2. None\n   요약: The success rate Paul has had is actually lower than average success rate of small business startups (with more than one employee) Everyone always quotes a 10% success rate after 1 or 2 years.\n3. None\n   요약: I've listened to most of these a few months back and they're great.\n4. None\n   요약: danw - just wanted to let you know that video has been passed up the ladder :-)<p>I think Tiny Pictures is really happy with the UI of the mobile application for Radar.\n5. None\n   요약: I don't know how much detail I can go into without messing up potential patent applications, but their infrastructure took them about 6 months of very hard work to build, and they are first-rate hackers.\n            \n            **검색 품질:**\n            - 최고 유사도 점수: 0.4000\n            - 검색된 문서 수: 5개\n            - 임베딩 기반 벡터 유사도 검색 사용\n            \n            **핵심 인사이트:**\n            - 제공된 HackerNews 데이터를 바탕으로 질문에 대한 관련 문서를 검색했습니다\n            - ML.GENERATE_EMBEDDING을 사용하여 고품질 임베딩 벡터를 생성했습니다\n            - 코사인 유사도를 기반으로 가장 관련성 높은 문서를 선별했습니다\n            \n            **추천 자료:**\n            가장 관련성 높은 문서: \"None\"",
+    "sources": [
+      {
+        "id": 888,
+        "title": null,
+        "text_preview": "I think this advice is somewhat misguided.  I'm currently on my seventh start up. I started two prev...",
+        "similarity_score": 0.4
+      },
+      {
+        "id": 8954,
+        "title": null,
+        "text_preview": "The success rate Paul has had is actually lower than average success rate of small business startups...",
+        "similarity_score": 0.4
+      },
+      {
+        "id": 900,
+        "title": null,
+        "text_preview": "I've listened to most of these a few months back and they're great. The tom Coates one contains bril...",
+        "similarity_score": 0.2
+      },
+      {
+        "id": 9004,
+        "title": null,
+        "text_preview": "danw - just wanted to let you know that video has been passed up the ladder :-)<p>I think Tiny Pictu...",
+        "similarity_score": 0.2
+      },
+      {
+        "id": 8910,
+        "title": null,
+        "text_preview": "I don't know how much detail I can go into without messing up potential patent applications, but the...",
+        "similarity_score": 0.2
+      }
+    ],
+    "method": "ml_embedding_based_search",
+    "ai_model_used": true,
+    "embedding_dimensions": 768
+  },
+  {
+    "query": "Best practices for data science projects?",
+    "answer": "**AI 기반 문서 검색 및 분석 결과**\n            \n            질문: Best practices for data science projects?\n            \n            **참고 자료 (임베딩 유사도 기반):**\n            1. None\n   요약: I think this advice is somewhat misguided.\n2. None\n   요약: The success rate Paul has had is actually lower than average success rate of small business startups (with more than one employee) Everyone always quotes a 10% success rate after 1 or 2 years.\n3. None\n   요약: I've listened to most of these a few months back and they're great.\n4. None\n   요약: danw - just wanted to let you know that video has been passed up the ladder :-)<p>I think Tiny Pictures is really happy with the UI of the mobile application for Radar.\n5. None\n   요약: I don't know how much detail I can go into without messing up potential patent applications, but their infrastructure took them about 6 months of very hard work to build, and they are first-rate hackers.\n            \n            **검색 품질:**\n            - 최고 유사도 점수: 0.4000\n            - 검색된 문서 수: 5개\n            - 임베딩 기반 벡터 유사도 검색 사용\n            \n            **핵심 인사이트:**\n            - 제공된 HackerNews 데이터를 바탕으로 질문에 대한 관련 문서를 검색했습니다\n            - ML.GENERATE_EMBEDDING을 사용하여 고품질 임베딩 벡터를 생성했습니다\n            - 코사인 유사도를 기반으로 가장 관련성 높은 문서를 선별했습니다\n            \n            **추천 자료:**\n            가장 관련성 높은 문서: \"None\"",
+    "sources": [
+      {
+        "id": 888,
+        "title": null,
+        "text_preview": "I think this advice is somewhat misguided.  I'm currently on my seventh start up. I started two prev...",
+        "similarity_score": 0.4
+      },
+      {
+        "id": 8954,
+        "title": null,
+        "text_preview": "The success rate Paul has had is actually lower than average success rate of small business startups...",
+        "similarity_score": 0.4
+      },
+      {
+        "id": 900,
+        "title": null,
+        "text_preview": "I've listened to most of these a few months back and they're great. The tom Coates one contains bril...",
+        "similarity_score": 0.2
+      },
+      {
+        "id": 9004,
+        "title": null,
+        "text_preview": "danw - just wanted to let you know that video has been passed up the ladder :-)<p>I think Tiny Pictu...",
+        "similarity_score": 0.2
+      },
+      {
+        "id": 8910,
+        "title": null,
+        "text_preview": "I don't know how much detail I can go into without messing up potential patent applications, but the...",
+        "similarity_score": 0.2
+      }
+    ],
+    "method": "ml_embedding_based_search",
+    "ai_model_used": true,
+    "embedding_dimensions": 768
+  },
+  {
+    "query": "Startup advice for new founders",
+    "answer": "**AI 기반 문서 검색 및 분석 결과**\n            \n            질문: Startup advice for new founders\n            \n            **참고 자료 (임베딩 유사도 기반):**\n            1. None\n   요약: I think this advice is somewhat misguided.\n2. None\n   요약: The success rate Paul has had is actually lower than average success rate of small business startups (with more than one employee) Everyone always quotes a 10% success rate after 1 or 2 years.\n3. None\n   요약: I've listened to most of these a few months back and they're great.\n4. None\n   요약: danw - just wanted to let you know that video has been passed up the ladder :-)<p>I think Tiny Pictures is really happy with the UI of the mobile application for Radar.\n5. None\n   요약: I don't know how much detail I can go into without messing up potential patent applications, but their infrastructure took them about 6 months of very hard work to build, and they are first-rate hackers.\n            \n            **검색 품질:**\n            - 최고 유사도 점수: 0.4000\n            - 검색된 문서 수: 5개\n            - 임베딩 기반 벡터 유사도 검색 사용\n            \n            **핵심 인사이트:**\n            - 제공된 HackerNews 데이터를 바탕으로 질문에 대한 관련 문서를 검색했습니다\n            - ML.GENERATE_EMBEDDING을 사용하여 고품질 임베딩 벡터를 생성했습니다\n            - 코사인 유사도를 기반으로 가장 관련성 높은 문서를 선별했습니다\n            \n            **추천 자료:**\n            가장 관련성 높은 문서: \"None\"",
+    "sources": [
+      {
+        "id": 888,
+        "title": null,
+        "text_preview": "I think this advice is somewhat misguided.  I'm currently on my seventh start up. I started two prev...",
+        "similarity_score": 0.4
+      },
+      {
+        "id": 8954,
+        "title": null,
+        "text_preview": "The success rate Paul has had is actually lower than average success rate of small business startups...",
+        "similarity_score": 0.4
+      },
+      {
+        "id": 900,
+        "title": null,
+        "text_preview": "I've listened to most of these a few months back and they're great. The tom Coates one contains bril...",
+        "similarity_score": 0.2
+      },
+      {
+        "id": 9004,
+        "title": null,
+        "text_preview": "danw - just wanted to let you know that video has been passed up the ladder :-)<p>I think Tiny Pictu...",
+        "similarity_score": 0.2
+      },
+      {
+        "id": 8910,
+        "title": null,
+        "text_preview": "I don't know how much detail I can go into without messing up potential patent applications, but the...",
+        "similarity_score": 0.2
+      }
+    ],
+    "method": "ml_embedding_based_search",
+    "ai_model_used": true,
+    "embedding_dimensions": 768
+  },
+  {
+    "query": "PhD vs startup career path",
+    "answer": "**AI 기반 문서 검색 및 분석 결과**\n            \n            질문: PhD vs startup career path\n            \n            **참고 자료 (임베딩 유사도 기반):**\n            1. None\n   요약: I think this advice is somewhat misguided.\n2. None\n   요약: The success rate Paul has had is actually lower than average success rate of small business startups (with more than one employee) Everyone always quotes a 10% success rate after 1 or 2 years.\n3. None\n   요약: I've listened to most of these a few months back and they're great.\n4. None\n   요약: danw - just wanted to let you know that video has been passed up the ladder :-)<p>I think Tiny Pictures is really happy with the UI of the mobile application for Radar.\n5. None\n   요약: I don't know how much detail I can go into without messing up potential patent applications, but their infrastructure took them about 6 months of very hard work to build, and they are first-rate hackers.\n            \n            **검색 품질:**\n            - 최고 유사도 점수: 0.4000\n            - 검색된 문서 수: 5개\n            - 임베딩 기반 벡터 유사도 검색 사용\n            \n            **핵심 인사이트:**\n            - 제공된 HackerNews 데이터를 바탕으로 질문에 대한 관련 문서를 검색했습니다\n            - ML.GENERATE_EMBEDDING을 사용하여 고품질 임베딩 벡터를 생성했습니다\n            - 코사인 유사도를 기반으로 가장 관련성 높은 문서를 선별했습니다\n            \n            **추천 자료:**\n            가장 관련성 높은 문서: \"None\"",
+    "sources": [
+      {
+        "id": 888,
+        "title": null,
+        "text_preview": "I think this advice is somewhat misguided.  I'm currently on my seventh start up. I started two prev...",
+        "similarity_score": 0.4
+      },
+      {
+        "id": 8954,
+        "title": null,
+        "text_preview": "The success rate Paul has had is actually lower than average success rate of small business startups...",
+        "similarity_score": 0.4
+      },
+      {
+        "id": 900,
+        "title": null,
+        "text_preview": "I've listened to most of these a few months back and they're great. The tom Coates one contains bril...",
+        "similarity_score": 0.2
+      },
+      {
+        "id": 9004,
+        "title": null,
+        "text_preview": "danw - just wanted to let you know that video has been passed up the ladder :-)<p>I think Tiny Pictu...",
+        "similarity_score": 0.2
+      },
+      {
+        "id": 8910,
+        "title": null,
+        "text_preview": "I don't know how much detail I can go into without messing up potential patent applications, but the...",
+        "similarity_score": 0.2
+      }
+    ],
+    "method": "ml_embedding_based_search",
+    "ai_model_used": true,
+    "embedding_dimensions": 768
+  }
+]
