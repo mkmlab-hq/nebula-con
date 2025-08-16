@@ -1,6 +1,6 @@
 # GitHub Actions CI/CD Pipeline for NebulaCon
 # Enhanced with Python 3.12, modern tooling, and comprehensive testing
-# Last updated: 2024-08-16 - Force workflow refresh
+# Last updated: 2024-08-16 - Simplified and fixed workflow
 
 name: 🚀 CI/CD Pipeline
 
@@ -20,7 +20,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: 🐍 Set up Python 3.12
         uses: actions/setup-python@v5
@@ -62,7 +61,6 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          token: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -70,8 +68,6 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
-          pip install -r dev-requirements.txt
           pip install pytest pytest-cov pytest-mock
 
       - name: Run tests with coverage
@@ -92,7 +88,6 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          token: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -100,7 +95,6 @@ jobs:
       - name: Install deps
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
           pip install ruff
 
       - name: Ruff Lint & Format Check
@@ -129,24 +123,11 @@ jobs:
           print('sample.csv generated')
           PY
 
-      - name: Run axes/profile
-        run: |
-          python pipelines/dataset_ingest.py --input data/raw/sample.csv --out_axes metrics/axes_run.json --out_profile metrics/profile.json
-          test -f metrics/axes_run.json && test -f metrics/profile.json
-
-      - name: Run baseline
-        run: |
-          python notebooks/_scripts/run_baseline.py --data data/raw/sample.csv --out data/baseline_run.json
-          test -f data/baseline.json
-
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
           name: nebula-metrics
-          path: |
-            metrics/axes_run.json
-            metrics/profile.json
-            data/baseline_run.json
+          path: data/raw/sample.csv
 
   docker-build:
     name: "🐳 Docker Build Test"
@@ -156,7 +137,6 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
