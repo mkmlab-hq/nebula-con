@@ -9,7 +9,7 @@ scipy
 # rPPG and Computer Vision
 opencv-python   
 scikit-image    
-tensorflow      
+# tensorflow      # (Alpine Linux + Python 3.12 환경에서는 설치 불가)
 
 # Voice Analysis
 librosa
