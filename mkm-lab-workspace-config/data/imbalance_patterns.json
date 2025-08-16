@@ -1,0 +1,58 @@
+{
+  "version": "0.9",
+  "last_updated": "2024-12-19",
+  "description": "MKM-12 통합 이론의 불균형 패턴과 전이 개념",
+  "transition_concepts": {
+    "force_cycle_hypothesis": {
+      "description": "Force 순환 가설",
+      "cycle": "S (에너지 개시) → K (교환/재배치) → L (축적/안정화) → C (코딩/정교화) → S (새 루프)"
+    },
+    "mode_transition_patterns": {
+      "description": "Mode 전이 패턴",
+      "basic_cycle": "B → A → X → (회복) → B",
+      "stress_phase": "위기(Stress) 구간: A→X 비율 상승",
+      "recovery_phase": "회복(Recovery) 구간: X→B 직접 전이(급속 안정) 또는 X→A→B 점진 회복"
+    }
+  },
+  "imbalance_patterns": [
+    {
+      "pattern": "Solar Dominance",
+      "description": "S-* 과다 → 소모/불안정",
+      "examples": ["번아웃"]
+    },
+    {
+      "pattern": "Lunar Stasis",
+      "description": "L-* 과다 → 정체/비만/기능 부채",
+      "examples": ["코드 레거시 폭증"]
+    },
+    {
+      "pattern": "Kinetic Noise",
+      "description": "K-* 과다 → 산만, 방향 상실",
+      "examples": ["조직 과회의"]
+    },
+    {
+      "pattern": "Cryptic Rigidity",
+      "description": "C-* 과다 → 혁신 둔화",
+      "examples": ["규칙 변경 저항"]
+    },
+    {
+      "pattern": "Spectrum Collapse",
+      "description": "단일 Mode 편향 (X 과다 등)",
+      "examples": ["만성 스트레스"]
+    },
+    {
+      "pattern": "Fragmented Cycle",
+      "description": "Force 순환 결손(S→K 건너뜀 등)",
+      "examples": ["프로젝트 중단"]
+    }
+  ],
+  "metric_mapping_framework": {
+    "description": "메트릭 매핑 프레임",
+    "formulas": [
+      "Force Activation Score = Σ (정규화된 도메인 별 지표 * 가중치)",
+      "Distribution Entropy H(P) → 다양성/균형 평가",
+      "Imbalance Index = (max p_fm - min p_fm)",
+      "Transition Smoothness = 평균 |Δ p_fm| / Δt"
+    ]
+  }
+} 

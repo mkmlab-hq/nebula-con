@@ -1,0 +1,67 @@
+{
+  "version": "0.9",
+  "last_updated": "2024-12-19",
+  "description": "MKM-12 통합 이론의 핵심 용어사전",
+  "terms": [
+    {
+      "term": "Force(힘)",
+      "definition": "시스템 행위의 1차 구동 축",
+      "category": "개념 모델(과학적 프레임)",
+      "notes": "실측은 파생 지표"
+    },
+    {
+      "term": "Manifestation Mode",
+      "definition": "Force 발현 상태 공간의 연산자",
+      "category": "과학/동역학",
+      "notes": "B/A/X"
+    },
+    {
+      "term": "Persona",
+      "definition": "Force × Mode 조합",
+      "category": "모델 엔티티",
+      "notes": "12개"
+    },
+    {
+      "term": "Activation",
+      "definition": "특정 Persona 영향력 정도",
+      "category": "분석 메트릭",
+      "notes": "확률/가중"
+    },
+    {
+      "term": "Imbalance",
+      "definition": "Persona 분포 왜곡",
+      "category": "평가 지표",
+      "notes": "개입 트리거"
+    },
+    {
+      "term": "Cycle",
+      "definition": "Force 전이 시퀀스",
+      "category": "동역학",
+      "notes": "최적 순환 가설"
+    },
+    {
+      "term": "Fractal Mapping",
+      "definition": "거대/미시 동일 패턴 매핑",
+      "category": "메타포+구조 동일성",
+      "notes": "레벨 태깅 필요"
+    },
+    {
+      "term": "Structural Isomorphism",
+      "definition": "관계 형태 상 유사",
+      "category": "구조 레벨",
+      "notes": "증거 강조"
+    },
+    {
+      "term": "Symbolic Resonance",
+      "definition": "상징/이미지 공명",
+      "category": "메타포",
+      "notes": "과도 확장 주의"
+    },
+    {
+      "term": "Validation Protocol",
+      "definition": "반증 가능성 검증 절차",
+      "category": "과학",
+      "notes": "사전 등록 권장"
+    }
+  ]
+} 

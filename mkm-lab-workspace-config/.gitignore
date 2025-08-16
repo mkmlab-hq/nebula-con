@@ -1,0 +1,11 @@
+# secrets
+.env
+*.env
+secrets.conf
+**/gcp-service-account-key.json
+**/gcs-key.json
+
+# OS/IDE
+.DS_Store
+Thumbs.db
+.vscode/

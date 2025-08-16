@@ -1,0 +1,37 @@
+{
+  "version": "0.9",
+  "last_updated": "2024-12-19",
+  "description": "MKM-12 통합 이론의 3 Manifestation Modes 정의",
+  "modes": [
+    {
+      "code": "B",
+      "korean_name": "기본형",
+      "english_name": "Baseline Mode",
+      "definition": "안정적인 평균 수준에서 본질 기능 수행",
+      "dynamical_meaning": "정상 상태(steady)",
+      "quantification_hint": "변동성 낮음, 평균 유지"
+    },
+    {
+      "code": "A",
+      "korean_name": "변증형",
+      "english_name": "Adaptive Mode",
+      "definition": "맥락·환경 변화에 맞춰 조정·재배치",
+      "dynamical_meaning": "피드백 기반 재조정",
+      "quantification_hint": "변동성 중간, 응답 지연 단축"
+    },
+    {
+      "code": "X",
+      "korean_name": "복증형",
+      "english_name": "Amplified / Peak Mode",
+      "definition": "극적·위기·임계 상황에서 과도 또는 첨예 발현",
+      "dynamical_meaning": "포화/임계/피크",
+      "quantification_hint": "첨두 값, 급변 기울기, 드롭오프"
+    }
+  ],
+  "transition_patterns": {
+    "description": "Mode 전이 패턴",
+    "basic_cycle": "B → A → X → (회복) → B",
+    "stress_phase": "위기(Stress) 구간: A→X 비율 상승",
+    "recovery_phase": "회복(Recovery) 구간: X→B 직접 전이(급속 안정) 또는 X→A→B 점진 회복"
+  }
+} 

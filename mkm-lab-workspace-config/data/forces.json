@@ -1,0 +1,72 @@
+{
+  "version": "0.9",
+  "last_updated": "2024-12-19",
+  "description": "MKM-12 통합 이론의 4 Forces 정의",
+  "forces": [
+    {
+      "code": "S",
+      "korean_name": "태양적 힘",
+      "english_name": "Solaric Force",
+      "one_sentence_definition": "에너지를 외부로 발산·개시하는 동력",
+      "functional_core": "점화/출력",
+      "system_perspective": "Actuation / Output Gain",
+      "representative_metaphor": "빛, 폭발, 점화",
+      "excess_risk": "충동, 과열",
+      "deficiency_risk": "지연, 무기력",
+      "measurement_candidates": ["행동 시작 빈도", "급상승 활동량", "초기 심박 가속"]
+    },
+    {
+      "code": "L",
+      "korean_name": "태음적 힘",
+      "english_name": "Lunaric Force",
+      "one_sentence_definition": "에너지를 수렴·축적·형태화하여 저장·안정화",
+      "functional_core": "축적/형성",
+      "system_perspective": "State Accumulation",
+      "representative_metaphor": "토양, 저장소, 응집",
+      "excess_risk": "정체, 과밀",
+      "deficiency_risk": "자원 고갈",
+      "measurement_candidates": ["저장 지표(글리코겐/지방)", "재고", "누적 시간"]
+    },
+    {
+      "code": "K",
+      "korean_name": "소양적 힘",
+      "english_name": "Kinetic / Transductive Force",
+      "one_sentence_definition": "요소 간 교환·변환·관계 조정 및 흐름 촉진",
+      "functional_core": "전환/중개",
+      "system_perspective": "Coupling / Exchange",
+      "representative_metaphor": "다리, 시장, 네트워크",
+      "excess_risk": "산만, 과잉 교란",
+      "deficiency_risk": "고립, 경직",
+      "measurement_candidates": ["네트워크 밀도", "상호작용 빈도", "전환율"]
+    },
+    {
+      "code": "C",
+      "korean_name": "소음적 힘",
+      "english_name": "Cryptic / Homeostatic Force",
+      "one_sentence_definition": "내재된 규칙·패턴·정밀 제어를 유지·조율",
+      "functional_core": "정교/질서",
+      "system_perspective": "Control Law / Encoding",
+      "representative_metaphor": "설계도, 규칙, DNA",
+      "excess_risk": "강직, 과규칙",
+      "deficiency_risk": "혼돈, 불안정",
+      "measurement_candidates": ["변동성 감소", "오차율", "규칙 일관성"]
+    }
+  ],
+  "orthogonality": {
+    "description": "개념 직교성",
+    "axes": [
+      {
+        "name": "에너지 방향성",
+        "description": "외향 vs 내향",
+        "forces": ["S", "L"]
+      },
+      {
+        "name": "정보 구조화",
+        "description": "코딩/질서 vs 변환/유통",
+        "forces": ["C", "K"]
+      }
+    ],
+    "cross_axes": ["출력", "저장", "교환", "조절"],
+    "note": "4개의 시스템 함수로 구성"
+  }
+} 

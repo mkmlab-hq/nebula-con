@@ -1,0 +1,31 @@
+{
+  "name": "mkm-nurse-assistant",
+  "version": "1.0.0",
+  "description": "MKM Lab 간호조무사용 4대 진단 데이터 수집 PWA",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "deploy": "npm run build && firebase deploy --only hosting:nurse-app"
+  },
+  "dependencies": {
+    "@quasar/extras": "^1.16.0",
+    "axios": "^1.6.0",
+    "firebase": "^10.7.0",
+    "pinia": "^2.1.0",
+    "quasar": "^2.14.0",
+    "vue": "^3.4.0",
+    "vue-router": "^4.2.0"
+  },
+  "devDependencies": {
+    "@quasar/vite-plugin": "^1.6.0",
+    "@vitejs/plugin-vue": "^5.0.0",
+    "sass": "^1.89.2",
+    "sass-embedded": "^1.89.2",
+    "vite": "^5.0.0",
+    "vite-plugin-pwa": "^0.17.0",
+    "workbox-build": "^7.0.0",
+    "workbox-window": "^7.0.0"
+  }
+}
