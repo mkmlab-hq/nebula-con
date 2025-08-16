@@ -1,0 +1,28 @@
+# .github/workflows/ultra-minimal.yml
+# Ultra-minimal CI Pipeline for NebulaCon - Complete fresh start
+
+name: Ultra Minimal Pipeline
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  basic-test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Python 3.12
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'
+
+    - name: Basic Python test
+      run: |
+        echo "Python version:"
+        python --version
+        echo "Basic test completed successfully!" 
