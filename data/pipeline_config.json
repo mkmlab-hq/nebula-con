@@ -1,8 +1,0 @@
-{
-  "chunk_size": 512,
-  "chunk_overlap": 0.1,
-  "vector_dimension": 768,
-  "max_memory_gb": 4,
-  "target_accuracy": 0.6,
-  "max_response_time": 2.0
-}

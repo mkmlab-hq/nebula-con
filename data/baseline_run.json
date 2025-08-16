@@ -1,7 +1,0 @@
-{
-  "timestamp": 1755148303.7723722,
-  "model": "RandomForestClassifier",
-  "macro_f1": 0.7928604705334266,
-  "rows": 500,
-  "classes": 3
-}
