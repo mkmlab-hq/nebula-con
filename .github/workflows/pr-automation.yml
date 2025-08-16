@@ -2,7 +2,12 @@ name: PR Automation & Quality Gate
 on:
   pull_request:
     types: [opened, synchronize, reopened, ready_for_review]
-    branches: [ main, master, develop ]
+    branches: [ main, master ]
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+      - 'LICENSE'
+      - 'README.md'
   pull_request_review:
     types: [submitted, dismissed, edited]
 

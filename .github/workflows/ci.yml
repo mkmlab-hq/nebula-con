@@ -1,9 +1,17 @@
-name: NebulaCon CI
+name: NebulaCon Core CI
 on:
   push:
-    branches: [ main, master, develop ]
+    branches: [ main, master ]
+    paths-ignore:
+      - '**.md'
+      - '.github/**'
+      - 'docs/**'
   pull_request:
     branches: [ main, master ]
+    paths-ignore:
+      - '**.md'
+      - '.github/**'
+      - 'docs/**'
 jobs:
   build-test:
     runs-on: ubuntu-latest
