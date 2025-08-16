@@ -1,0 +1,33 @@
+services:
+  nebula-con:
+    build: .
+    container_name: nebula-con-dev
+    ports:
+      - "8000:8000"
+    volumes:
+      # 로컬 코드를 컨테이너에 마운트 (실시간 반영)
+      - .:/app
+    environment:
+      - PYTHONPATH=/app
+      - PYTHONUNBUFFERED=1
+    working_dir: /app
+    # 개발 모드로 실행 (터미널 접속 가능)
+    stdin_open: true
+    tty: true
+    # 컨테이너 재시작 정책
+    restart: unless-stopped
+    
+  # Jupyter 노트북 서비스
+  jupyter:
+    build: .
+    container_name: nebula-con-jupyter
+    ports:
+      - "8888:8888"
+    volumes:
+      - .:/app
+    environment:
+      - PYTHONPATH=/app
+      - PYTHONUNBUFFERED=1
+    working_dir: /app
+    command: jupyter notebook --ip=0.0.0.0 --port=8888 --no-browser --allow-root --NotebookApp.token=''
+    restart: unless-stopped 

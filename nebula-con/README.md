@@ -30,7 +30,34 @@ nebula-con/
 
 ## 🚀 빠른 시작
 
-### 1. 환경 설정
+### 🐳 **로컬 도커 환경 (권장)**
+
+#### 1. 도커 환경 실행
+```bash
+# Windows
+docker-run.bat
+
+# Linux/Mac
+chmod +x docker-run.sh
+./docker-run.sh
+```
+
+#### 2. 컨테이너에 접속
+```bash
+# 개발 컨테이너 접속
+docker exec -it nebula-con-dev bash
+
+# Jupyter 노트북 접속
+docker exec -it nebula-con-jupyter bash
+```
+
+#### 3. 서비스 접속
+- **개발 서버**: http://localhost:8000
+- **Jupyter 노트북**: http://localhost:8888
+
+### 💻 **로컬 환경 (기존 방식)**
+
+#### 1. 환경 설정
 ```bash
 # 의존성 설치
 pip install -r requirements.txt
@@ -40,7 +67,7 @@ cp .env.example .env
 # .env 파일을 편집하여 실제 값 설정
 ```
 
-### 2. 개발 서버 실행
+#### 2. 개발 서버 실행
 ```bash
 # 개발 모드로 실행
 python main.py
